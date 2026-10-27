@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<title>لعبة: 2-1 الذرات والجزيئات</title>
+<style>
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;padding:0;min-height:100%}
+body{
+  font-family:'Segoe UI',Tahoma,'Noto Naskh Arabic','Noto Sans Arabic',Arial,sans-serif;
+  direction:rtl;text-align:right;color:#1d2a3a;line-height:1.75;
+  background:linear-gradient(160deg,#d6eaf8 0%,#e8daf5 45%,#fdebd0 100%);
+  background-attachment:fixed;
+}
+.wrap{max-width:720px;margin:0 auto;padding:12px 14px 28px}
+header{
+  background:linear-gradient(105deg,#0b5394 0%,#5b2c8a 100%);
+  color:#fff;border-radius:18px;padding:18px 20px;margin-bottom:14px;
+  box-shadow:0 8px 24px rgba(11,83,148,.28);
+}
+header h1{margin:0;font-size:clamp(20px,5vw,28px);font-weight:800}
+header p{margin:6px 0 0;opacity:.92;font-size:14px}
+.hud{
+  display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px;
+}
+.chip{
+  background:#fff;border-radius:999px;padding:6px 14px;font-weight:700;font-size:14px;
+  box-shadow:0 2px 8px rgba(0,0,0,.06);border:1px solid #e0e7ef;
+}
+.chip b{color:#0b5394}
+.progress{
+  height:10px;background:#d0dbe8;border-radius:999px;overflow:hidden;margin-bottom:14px;
+}
+.progress>i{display:block;height:100%;width:0;background:linear-gradient(90deg,#2e9e4a,#f4a300,#0b5394);border-radius:999px;transition:width .35s ease}
+.card{
+  background:#fff;border-radius:18px;padding:18px 18px 20px;
+  box-shadow:0 6px 20px rgba(0,0,0,.08);margin-bottom:14px;
+}
+.card h2{margin:0 0 8px;color:#0b5394;font-size:20px;border-right:5px solid #f4a300;padding-right:10px}
+.card .hint{color:#5a6a7a;font-size:14px;margin:0 0 14px}
+.lv{
+  display:inline-block;padding:2px 11px;border-radius:20px;color:#fff;font-size:12px;font-weight:700;margin-left:6px;vertical-align:middle
+}
+.l1{background:#2e9e4a}.l2{background:#e08a00}.l3{background:#c0392b}
+.btn{
+  display:inline-block;background:linear-gradient(105deg,#6a3d9a,#0b5394);color:#fff;border:0;
+  border-radius:12px;padding:12px 22px;font:inherit;font-weight:700;cursor:pointer;
+  box-shadow:0 4px 14px rgba(11,83,148,.3);transition:transform .15s,box-shadow .15s;
+}
+.btn:hover{transform:translateY(-1px);box-shadow:0 6px 18px rgba(11,83,148,.4)}
+.btn:active{transform:translateY(1px)}
+.btn:disabled{opacity:.55;cursor:not-allowed;transform:none}
+.btn.sec{background:#fff;color:#0b5394;border:2px solid #0b5394;box-shadow:none}
+.btn.ok{background:linear-gradient(105deg,#2e9e4a,#1e7e34)}
+.btn.bad{background:linear-gradient(105deg,#c0392b,#922b21)}
+.center{text-align:center}
+.screen{display:none}.screen.on{display:block}
+/* Round 1 classification */
+.item-box{
+  background:linear-gradient(135deg,#f7faff,#efe6fa);border:2px dashed #a9bdd6;
+  border-radius:16px;padding:22px 16px;text-align:center;margin-bottom:14px;
+}
+.item-box .sym{font-size:clamp(36px,10vw,56px);font-weight:800;color:#0b5394;letter-spacing:.02em;direction:ltr;unicode-bidi:isolate}
+.item-box .name{font-size:18px;color:#5a6a7a;margin-top:4px}
+.cats{display:grid;grid-template-columns:1fr;gap:10px}
+@media(min-width:480px){.cats{grid-template-columns:1fr 1fr 1fr}}
+.cat{
+  border:2px solid #c9d6e8;background:#f7faff;border-radius:14px;padding:14px 10px;
+  text-align:center;cursor:pointer;font-weight:700;font-size:15px;transition:all .15s;user-select:none;
+}
+.cat:hover{border-color:#6a3d9a;background:#efe6fa}
+.cat.pick{border-color:#6a3d9a;background:#efe6fa;outline:3px solid rgba(106,61,154,.25)}
+.cat.right{border-color:#2e9e4a;background:#d7f5dd}
+.cat.wrong{border-color:#d33;background:#fde0e0}
+.cat small{display:block;font-weight:500;color:#667;font-size:12px;margin-top:4px}
+/* Round 2 MCQ */
+.opts{display:grid;gap:8px;margin-top:10px}
+.opts button{
+  display:block;width:100%;text-align:right;padding:12px 14px;border-radius:12px;
+  border:2px solid #c9d6e8;background:#f7faff;font:inherit;cursor:pointer;font-size:16px;
+}
+.opts button:hover:not(:disabled){background:#eaf2ff;border-color:#6a3d9a}
+.opts button.ok{background:#d7f5dd!important;border-color:#2e9e4a!important}
+.opts button.bad{background:#fde0e0!important;border-color:#d33!important}
+.opts button:disabled{cursor:default}
+.timer-bar{height:8px;background:#eee;border-radius:999px;overflow:hidden;margin:8px 0 4px}
+.timer-bar>i{display:block;height:100%;width:100%;background:#e08a00;transition:width .2s linear,background .2s}
+.timer-bar>i.low{background:#c0392b}
+/* Round 3 match */
+.match-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.tile{
+  padding:14px 10px;border-radius:12px;border:2px solid #c9d6e8;background:#f7faff;
+  cursor:pointer;text-align:center;font-size:16px;font-weight:700;min-height:58px;
+  display:flex;align-items:center;justify-content:center;user-select:none;transition:all .15s;
+}
+.tile .ltr{direction:ltr;unicode-bidi:isolate;font-size:20px}
+.tile.sel{border-color:#6a3d9a;background:#efe6fa;box-shadow:0 0 0 3px rgba(106,61,154,.2)}
+.tile.done{background:#d7f5dd;border-color:#2e9e4a;opacity:.78;cursor:default}
+.tile.err{animation:shake .35s;border-color:#d33;background:#fde0e0}
+@keyframes shake{25%{transform:translateX(6px)}75%{transform:translateX(-6px)}}
+.fb{
+  margin-top:12px;padding:12px 14px;border-radius:12px;font-weight:700;min-height:1.4em;
+  display:none;
+}
+.fb.show{display:block}
+.fb.good{background:#e8f8ec;color:#1b7a30;border:1px solid #a8e0b4}
+.fb.bad{background:#fdeeee;color:#a12a2a;border:1px solid #f0b4b4}
+.actions{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-top:14px}
+.big-score{font-size:clamp(40px,12vw,64px);font-weight:800;color:#0b5394;margin:8px 0}
+.stars{font-size:32px;letter-spacing:4px;margin:6px 0}
+.splash-icon{font-size:56px;margin:8px 0}
+footer{text-align:center;color:#667;font-size:12px;padding:8px 4px 20px}
+.q-num{color:#5a6a7a;font-size:13px;margin-bottom:6px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>🎮 لعبة: الذرات والجزيئات</h1>
+    <p>الدرس 2-1 · الكيمياء · الصف التاسع · أ. يعقوب المعمري</p>
+  </header>
+
+  <div class="hud" id="hud" style="display:none">
+    <div class="chip">الجولة: <b id="hud-round">1</b> / 3</div>
+    <div class="chip">النقاط: <b id="hud-score">0</b></div>
+    <div class="chip">التقدّم: <b id="hud-prog">0</b> / 15</div>
+  </div>
+  <div class="progress" id="progbar" style="display:none"><i id="progfill"></i></div>
+
+  <!-- Splash -->
+  <section class="screen on" id="s-splash">
+    <div class="card center">
+      <div class="splash-icon">⚛️</div>
+      <h2 style="border:0;padding:0;text-align:center">مرحباً بك في اللعبة!</h2>
+      <p class="hint" style="text-align:center">ثلاث جولات · 15 سؤالاً · ثلاث مستويات صعوبة<br>
+      صنّف · أجب بسرعة · طابق الصيغ بأسمائها</p>
+      <ul style="text-align:right;display:inline-block;margin:8px auto 16px;padding-right:22px;color:#334">
+        <li><b>الجولة 1:</b> صنّف الذرّة / جزيء عنصر / جزيء مركّب (5)</li>
+        <li><b>الجولة 2:</b> أسئلة اختيار من متعدد موقوتة (5)</li>
+        <li><b>الجولة 3:</b> طابق الصيغة الكيميائية باسمها (5)</li>
+      </ul>
+      <div class="actions"><button class="btn" id="btn-start">ابدأ اللعب ▶</button></div>
+    </div>
+  </section>
+
+  <!-- Round 1 -->
+  <section class="screen" id="s-r1">
+    <div class="card">
+      <h2>الجولة 1: صنّف النوع</h2>
+      <p class="hint">اضغط على التصنيف الصحيح للمادة الظاهرة. <span class="lv l1">أساسي</span><span class="lv l2">متوسط</span><span class="lv l3">متقدم</span></p>
+      <div class="q-num" id="r1-num"></div>
+      <div class="item-box">
+        <div class="sym" id="r1-sym">O₂</div>
+        <div class="name" id="r1-name">الأكسجين</div>
+      </div>
+      <div class="cats" id="r1-cats">
+        <div class="cat" data-cat="atom">ذرّة عنصر<small>ذرّة منفردة مثل He أو Fe</small></div>
+        <div class="cat" data-cat="elemMol">جزيء عنصر<small>ذرّات من نوع واحد مثل O₂</small></div>
+        <div class="cat" data-cat="compMol">جزيء مركّب<small>عناصر مختلفة مثل H₂O</small></div>
+      </div>
+      <div class="fb" id="r1-fb"></div>
+      <div class="actions"><button class="btn" id="r1-next" style="display:none">التالي ◀</button></div>
+    </div>
+  </section>
+
+  <!-- Round 2 -->
+  <section class="screen" id="s-r2">
+    <div class="card">
+      <h2>الجولة 2: أجب بسرعة</h2>
+      <p class="hint">اختر الإجابة الصحيحة قبل انتهاء الوقت (20 ثانية لكل سؤال).</p>
+      <div class="q-num" id="r2-num"></div>
+      <div id="r2-lv"></div>
+      <p id="r2-q" style="font-size:18px;font-weight:700;margin:8px 0"></p>
+      <div class="timer-bar"><i id="r2-timer"></i></div>
+      <div class="opts" id="r2-opts"></div>
+      <div class="fb" id="r2-fb"></div>
+      <div class="actions"><button class="btn" id="r2-next" style="display:none">التالي ◀</button></div>
+    </div>
+  </section>
+
+  <!-- Round 3 -->
+  <section class="screen" id="s-r3">
+    <div class="card">
+      <h2>الجولة 3: طابق الصيغة بالاسم</h2>
+      <p class="hint">اضغط صيغة ثم اسمها الصحيح. خمس مطابقات.</p>
+      <div class="match-grid">
+        <div id="r3-L"></div>
+        <div id="r3-R"></div>
+      </div>
+      <div class="fb" id="r3-fb"></div>
+    </div>
+  </section>
+
+  <!-- Result -->
+  <section class="screen" id="s-end">
+    <div class="card center">
+      <div class="splash-icon" id="end-icon">🏆</div>
+      <h2 style="border:0;padding:0;text-align:center" id="end-title">أحسنت!</h2>
+      <div class="big-score"><span id="end-score">0</span><span style="font-size:22px;color:#667"> / 150</span></div>
+      <div class="stars" id="end-stars">⭐⭐⭐</div>
+      <p id="end-msg" style="color:#445"></p>
+      <p style="font-size:14px;color:#667" id="end-detail"></p>
+      <div class="actions">
+        <button class="btn" id="btn-retry">العب مرة أخرى 🔄</button>
+      </div>
+    </div>
+  </section>
+
+  <footer>الكيمياء – الصف التاسع – الفصل الدراسي الأول<br>أ. يعقوب بن راشد المعمري – مدرسة بلج بن عقبه الفراهيدى</footer>
+</div>
+
+<script>
+(function(){
+"use strict";
+
+/* ========== Data ========== */
+var R1 = [
+  {sym:"He", name:"الهيليوم", cat:"atom", lv:1,
+   why:"الهيليوم غاز نبيل يوجد على صورة ذرّات منفردة، فلا يتكوّن منه جزيء ثنائي."},
+  {sym:"O₂", name:"الأكسجين", cat:"elemMol", lv:1,
+   why:"O₂ جزيء عنصر: ذرّتان من الأكسجين مرتبطتان كيميائيًّا."},
+  {sym:"H₂O", name:"الماء", cat:"compMol", lv:1,
+   why:"الماء مركّب من عنصرين مختلفين (هيدروجين وأكسجين) متحدين بنسب ثابتة."},
+  {sym:"N₂", name:"النيتروجين", cat:"elemMol", lv:2,
+   why:"N₂ جزيء عنصر يتكوّن من ذرّتين من النيتروجين فقط."},
+  {sym:"CO₂", name:"ثاني أكسيد الكربون", cat:"compMol", lv:2,
+   why:"CO₂ مركّب: ذرّة كربون وذرّتا أكسجين متحدتان كيميائيًّا."},
+  {sym:"Fe", name:"الحديد", cat:"atom", lv:2,
+   why:"الحديد فلز يتكوّن من ذرّات منفردة من نوع واحد (عنصر)."},
+  {sym:"H₂", name:"الهيدروجين", cat:"elemMol", lv:3,
+   why:"H₂ جزيء عنصر ثنائي الذرّة، وليس مركّبًا لأنه من نوع واحد من الذرّات."},
+  {sym:"NaCl", name:"كلوريد الصوديوم", cat:"compMol", lv:3,
+   why:"كلوريد الصوديوم مركّب أيوني من عنصرين مختلفين متحدين كيميائيًّا."}
+];
+/* Use exactly 5 for round 1 - pick mix of difficulties */
+var R1_PLAY = [R1[0], R1[1], R1[2], R1[3], R1[6]]; // He, O2, H2O, N2, H2 — 1+2 basic/med +1 adv = 5
+
+var R2 = [
+  {q:"أصغر جزء من العنصر يحمل خصائصه الكيميائية هو:",
+   o:["الجزيء","الذرّة","المخلوط","الأيون"], a:1, lv:1,
+   e:"الذرّة هي أصغر جزء من العنصر يحتفظ بخصائصه الكيميائية."},
+  {q:"أيّ مما يأتي يمثّل جزيء مركّب؟",
+   o:["O₂","Fe","H₂O","N₂"], a:2, lv:1,
+   e:"H₂O يتكوّن من عنصرين مختلفين متحدين، أما O₂ وN₂ فجزيئات عناصر، وFe ذرّات عنصر."},
+  {q:"الجزيء هو:",
+   o:["ذرّة مشحونة كهربائيًّا","ذرّتان أو أكثر مرتبطة كيميائيًّا","مخلوط من غازات","جزء من النواة"], a:1, lv:2,
+   e:"الجزيء مجموعة من ذرّتين أو أكثر مرتبطة بروابط كيميائية."},
+  {q:"لماذا يُعدّ الهواء مخلوطًا لا مركّبًا؟",
+   o:["لأنه غاز","لأن مكوّناته غير متحدة كيميائيًّا ونسبها غير ثابتة","لأنه لا لون له","لأنه يتكوّن من الأكسجين فقط"], a:1, lv:2,
+   e:"المخلوط مواد غير متحدة كيميائيًّا بنسب غير ثابتة، وهذا ينطبق على الهواء."},
+  {q:"أيّ عبارة صحيحة عن O₂ وH₂O؟",
+   o:["كلاهما مركّب","O₂ جزيء عنصر وH₂O جزيء مركّب","كلاهما ذرّة منفردة","H₂O عنصر وO₂ مركّب"], a:1, lv:3,
+   e:"O₂ من نوع واحد من الذرّات (عنصر)، أما H₂O فمن عنصرين مختلفين (مركّب)."}
+];
+
+var R3 = [
+  {f:"O₂", n:"الأكسجين", lv:1},
+  {f:"H₂O", n:"الماء", lv:1},
+  {f:"CO₂", n:"ثاني أكسيد الكربون", lv:2},
+  {f:"N₂", n:"النيتروجين", lv:2},
+  {f:"H₂", n:"الهيدروجين", lv:3}
+];
+
+/* ========== State ========== */
+var score=0, answered=0, TOTAL=15;
+var r1i=0, r2i=0, r3done=0, r3err=0;
+var r2timer=null, r2left=20;
+var r3sel=null;
+var ptsR1=0, ptsR2=0, ptsR3=0;
+var POINTS_R1=10, POINTS_R2=10, POINTS_R3=10; // 5*10 + 5*10 + 5*10 = 150
+
+function $(id){return document.getElementById(id)}
+function show(id){
+  document.querySelectorAll('.screen').forEach(function(s){s.classList.remove('on')});
+  $(id).classList.add('on');
+}
+function shuffle(a){
+  a=a.slice();
+  for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=a[i];a[i]=a[j];a[j]=t}
+  return a;
+}
+function lvBadge(lv){
+  var names=['','أساسي','متوسط','متقدم'];
+  return '<span class="lv l'+lv+'">'+names[lv]+'</span>';
+}
+function updHud(round){
+  $('hud').style.display='flex';
+  $('progbar').style.display='block';
+  $('hud-round').textContent=round;
+  $('hud-score').textContent=score;
+  $('hud-prog').textContent=answered;
+  $('progfill').style.width=(100*answered/TOTAL)+'%';
+}
+function addScore(n){score+=n; $('hud-score').textContent=score}
+
+/* ========== Splash ========== */
+$('btn-start').onclick=function(){
+  R1_PLAY = shuffle(R1_PLAY);
+  r1i=0; score=0; answered=0; ptsR1=ptsR2=ptsR3=0;
+  show('s-r1'); updHud(1); renderR1();
+};
+
+/* ========== Round 1 ========== */
+function renderR1(){
+  var it=R1_PLAY[r1i];
+  $('r1-num').innerHTML='السؤال '+(r1i+1)+' من '+R1_PLAY.length+' '+lvBadge(it.lv);
+  $('r1-sym').textContent=it.sym;
+  $('r1-name').textContent=it.name;
+  var fb=$('r1-fb'); fb.className='fb'; fb.textContent='';
+  $('r1-next').style.display='none';
+  document.querySelectorAll('#r1-cats .cat').forEach(function(c){
+    c.className='cat';
+    c.onclick=function(){ pickR1(c, it); };
+  });
+}
+function pickR1(el, it){
+  document.querySelectorAll('#r1-cats .cat').forEach(function(c){c.onclick=null});
+  var ok = el.getAttribute('data-cat')===it.cat;
+  var fb=$('r1-fb');
+  if(ok){
+    el.classList.add('right');
+    fb.className='fb show good';
+    fb.textContent='✔ أحسنت! '+it.why;
+    addScore(POINTS_R1); ptsR1+=POINTS_R1;
+  } else {
+    el.classList.add('wrong');
+    document.querySelector('#r1-cats .cat[data-cat="'+it.cat+'"]').classList.add('right');
+    fb.className='fb show bad';
+    fb.textContent='✘ الإجابة الصحيحة مظللة بالأخضر. '+it.why;
+  }
+  answered++; updHud(1);
+  $('r1-next').style.display='inline-block';
+}
+$('r1-next').onclick=function(){
+  r1i++;
+  if(r1i>=R1_PLAY.length){ startR2(); }
+  else renderR1();
+};
+
+/* ========== Round 2 ========== */
+function startR2(){
+  R2 = shuffle(R2);
+  r2i=0;
+  show('s-r2'); updHud(2); renderR2();
+}
+function clearR2Timer(){ if(r2timer){clearInterval(r2timer); r2timer=null;} }
+function renderR2(){
+  clearR2Timer();
+  var q=R2[r2i];
+  $('r2-num').textContent='السؤال '+(r2i+1)+' من '+R2.length;
+  $('r2-lv').innerHTML=lvBadge(q.lv);
+  $('r2-q').textContent=q.q;
+  var fb=$('r2-fb'); fb.className='fb'; fb.textContent='';
+  $('r2-next').style.display='none';
+  var opts=$('r2-opts'); opts.innerHTML='';
+  q.o.forEach(function(t,i){
+    var b=document.createElement('button');
+    b.textContent=t;
+    b.onclick=function(){ answerR2(i,q); };
+    opts.appendChild(b);
+  });
+  r2left=20;
+  var bar=$('r2-timer');
+  bar.style.width='100%'; bar.className='';
+  r2timer=setInterval(function(){
+    r2left-=0.2;
+    var pct=Math.max(0, r2left/20*100);
+    bar.style.width=pct+'%';
+    if(r2left<=5) bar.classList.add('low');
+    if(r2left<=0){ answerR2(-1,q); }
+  },200);
+}
+function answerR2(choice,q){
+  clearR2Timer();
+  var opts=$('r2-opts').querySelectorAll('button');
+  opts.forEach(function(b){b.disabled=true; b.onclick=null});
+  var fb=$('r2-fb');
+  if(choice===q.a){
+    opts[q.a].classList.add('ok');
+    fb.className='fb show good';
+    fb.textContent='✔ إجابة صحيحة. '+q.e;
+    addScore(POINTS_R2); ptsR2+=POINTS_R2;
+  } else {
+    if(choice>=0) opts[choice].classList.add('bad');
+    opts[q.a].classList.add('ok');
+    fb.className='fb show bad';
+    fb.textContent=(choice<0?'⏱ انتهى الوقت! ':'✘ ') + 'الإجابة الصحيحة مظللة. '+q.e;
+  }
+  answered++; updHud(2);
+  $('r2-next').style.display='inline-block';
+}
+$('r2-next').onclick=function(){
+  r2i++;
+  if(r2i>=R2.length){ startR3(); }
+  else renderR2();
+};
+
+/* ========== Round 3 ========== */
+function startR3(){
+  r3done=0; r3err=0; r3sel=null;
+  show('s-r3'); updHud(3);
+  var L=$('r3-L'), R=$('r3-R');
+  L.innerHTML=''; R.innerHTML='';
+  $('r3-fb').className='fb'; $('r3-fb').textContent='';
+  var orderL=shuffle(R3.map(function(_,i){return i}));
+  var orderR=shuffle(R3.map(function(_,i){return i}));
+  orderL.forEach(function(i){
+    var t=document.createElement('div');
+    t.className='tile';
+    t.innerHTML='<span class="ltr">'+R3[i].f+'</span>';
+    t.dataset.k=i; t.dataset.s='L';
+    L.appendChild(t);
+  });
+  orderR.forEach(function(i){
+    var t=document.createElement('div');
+    t.className='tile';
+    t.textContent=R3[i].n;
+    t.dataset.k=i; t.dataset.s='R';
+    R.appendChild(t);
+  });
+  document.querySelectorAll('#r3-L .tile, #r3-R .tile').forEach(function(t){
+    t.onclick=function(){ pickR3(t); };
+  });
+}
+function pickR3(t){
+  if(t.classList.contains('done')) return;
+  if(!r3sel || r3sel.dataset.s===t.dataset.s){
+    if(r3sel) r3sel.classList.remove('sel');
+    r3sel=t; t.classList.add('sel'); return;
+  }
+  var fb=$('r3-fb');
+  if(r3sel.dataset.k===t.dataset.k){
+    r3sel.classList.remove('sel'); r3sel.classList.add('done');
+    t.classList.add('done');
+    r3done++;
+    addScore(POINTS_R3); ptsR3+=POINTS_R3;
+    answered++; updHud(3);
+    fb.className='fb show good';
+    fb.textContent='✔ مطابقة صحيحة! ('+r3done+' / '+R3.length+')';
+    r3sel=null;
+    if(r3done===R3.length){
+      setTimeout(finish, 700);
+    }
+  } else {
+    r3err++;
+    [r3sel,t].forEach(function(x){
+      x.classList.add('err');
+      setTimeout(function(){x.classList.remove('err')},350);
+    });
+    r3sel.classList.remove('sel');
+    fb.className='fb show bad';
+    fb.textContent='✘ حاول مرة أخرى';
+    r3sel=null;
+  }
+}
+
+/* ========== Finish ========== */
+function finish(){
+  show('s-end');
+  $('hud').style.display='flex';
+  $('progfill').style.width='100%';
+  $('end-score').textContent=score;
+  var pct=Math.round(100*score/150);
+  var stars, title, icon, msg;
+  if(pct>=90){ stars='⭐⭐⭐'; title='ممتاز!'; icon='🏆'; msg='أداء رائع، أتقنت مفاهيم الذرّات والجزيئات.'; }
+  else if(pct>=70){ stars='⭐⭐☆'; title='أحسنت!'; icon='🎉'; msg='نتيجة جيدة. راجع ما أخطأت فيه ثم حاول مرة أخرى.'; }
+  else if(pct>=50){ stars='⭐☆☆'; title='جيد، لكن يمكن أفضل'; icon='💪'; msg='راجع الفرق بين جزيء العنصر وجزيء المركّب ثم أعد المحاولة.'; }
+  else { stars='☆☆☆'; title='حاول مرة أخرى'; icon='📚'; msg='ارجع إلى درس 2-1 ثم العب من جديد.'; }
+  $('end-stars').textContent=stars;
+  $('end-title').textContent=title;
+  $('end-icon').textContent=icon;
+  $('end-msg').textContent=msg;
+  $('end-detail').textContent='الجولة 1: '+ptsR1+' · الجولة 2: '+ptsR2+' · الجولة 3: '+ptsR3+' · النسبة: '+pct+'٪';
+}
+$('btn-retry').onclick=function(){
+  clearR2Timer();
+  score=0; answered=0; ptsR1=ptsR2=ptsR3=0;
+  $('hud').style.display='none'; $('progbar').style.display='none';
+  $('progfill').style.width='0';
+  show('s-splash');
+};
+
+})();
+</script>
+</body>
+</html>
