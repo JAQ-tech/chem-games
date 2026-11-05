@@ -1,4 +1,4 @@
-const CACHE_VERSION = "manhal-v1";
+const CACHE_VERSION = "manhal-v2";
 
 const SHELL = [
   "./",

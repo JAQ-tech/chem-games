@@ -427,8 +427,8 @@ function shell(content) {
     <header class="mx-auto flex w-full max-w-6xl flex-col items-center gap-2 px-4 py-4 text-center">
       <div class="flex items-center justify-center gap-4">
         <img src="assets/school-logo.jpg" alt="" class="logo">
-        <img src="assets/oman-vision-2040.png" alt="" class="logo">
         <img src="assets/moe-logo.jpg" alt="" class="logo">
+        <img src="assets/oman-vision-2040.png" alt="" class="logo">
       </div>
       <h1 class="text-3xl font-bold text-brand-800">${esc(APP_NAME)}</h1>
       <p class="text-sm text-slate-600">${esc(t("tagline"))}</p>

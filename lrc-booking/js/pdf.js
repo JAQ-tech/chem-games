@@ -69,9 +69,9 @@ function wrapText(ctx, text, maxWidth) {
 export async function renderWeekCanvas(model) {
   await ensureFont();
   const logos = await Promise.all([
-    loadImage("assets/school-logo.jpg"),
     loadImage("assets/oman-vision-2040.png"),
     loadImage("assets/moe-logo.jpg"),
+    loadImage("assets/school-logo.jpg"),
   ]);
   const width = 1684;
   const height = 1191;
