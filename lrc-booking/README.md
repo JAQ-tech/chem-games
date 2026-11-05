@@ -42,12 +42,15 @@ python3 -m http.server 4173
 
 ## أندرويد
 
-المشروع في `android/`، والحزمة `om.balaj.lrc`، والإصدار `1.0.0`. الـ WebView يفتح `https://balaj-lrc.netlify.app`. `LrcJob` يسأل عن الإشعارات غير المقروءة كل ١٥ دقيقة عبر هوية يمررها الجسر `ManhalAndroid`، بلا خدمة أمامية.
+المشروع في `android/`، والحزمة `om.balaj.lrc`، والإصدار `1.0.0`. ملف التثبيت الجاهز: `android/manhal-1.0.0.apk`. أثناء البناء تُنسخ صفحات الويب إلى أصول الحزمة، ويفتحها WebView من داخل التطبيق. `LrcJob` يسأل عن الإشعارات غير المقروءة كل ١٥ دقيقة عبر هوية يمررها الجسر `ManhalAndroid`، بلا خدمة أمامية.
 
-التوقيع بمخزن مفاتيح خارج المستودع. أنشئ `android/keystore.properties` (هذا الملف مستبعد من Git) بالمفاتيح `storeFile` و`storePassword` و`keyAlias` و`keyPassword`. المستودع لا يتضمّن غلاف Gradle ولا حزمة APK. من Android Studio: افتح مجلد `android/` ثم Build، أو بعد توليد الغلاف:
+نسخة الملف المسلّمة موقّعة بمفتاح التصحيح. توقيع الإصدار النهائي يبقى خارج المستودع في `android/keystore.properties` بالمفاتيح `storeFile` و`storePassword` و`keyAlias` و`keyPassword`.
 
 ```bash
 cd android
-gradle wrapper
-./gradlew assembleRelease
+gradle assembleDebug
 ```
+
+## ملف واحد
+
+`npm run build:single` ينتج `manhal.html`، وهو التطبيق كاملًا في ملف واحد.
