@@ -1,0 +1,4 @@
+project_id = "manhal-lrc"
+
+[functions.login]
+verify_jwt = false
