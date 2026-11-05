@@ -107,11 +107,23 @@ exception when others then
   if position('HOLIDAY' in SQLERRM) = 0 then raise; end if;
 end $$;
 
+-- Standing subject periods stay reserved.
+do $$
+begin
+  if (select count(*) from subject_holds) <> 6 then
+    raise exception 'subject holds were not seeded';
+  end if;
+  perform create_booking('2026-11-01', array[4]::smallint[], 'lesson', '8-2', 'لغة عربية', 'قراءة', null, null, null, null, null);
+  raise exception 'subject hold was accepted';
+exception when others then
+  if position('SLOT_TAKEN' in SQLERRM) = 0 then raise; end if;
+end $$;
+
 -- Consecutive periods are stored as one group.
 do $$
 declare g uuid;
 begin
-  g := create_booking('2026-11-01', array[3, 4]::smallint[], 'lesson', '8-2', 'الرياضيات', 'الكسور', null, null, null, null, 'ملاحظات');
+  g := create_booking('2026-11-01', array[2, 3]::smallint[], 'lesson', '8-2', 'الرياضيات', 'الكسور', null, null, null, null, 'ملاحظات');
   if (select count(*) from bookings where group_id = g) <> 2 then
     raise exception 'consecutive group size';
   end if;

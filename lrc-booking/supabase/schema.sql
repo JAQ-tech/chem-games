@@ -30,6 +30,14 @@ create table periods (
   ends time
 );
 
+create table subject_holds (
+  weekday smallint not null check (weekday between 0 and 4),
+  period smallint not null references periods(n),
+  subject text not null,
+  display_name text not null default 'حصة المادة',
+  primary key (weekday, period)
+);
+
 create table class_sections (
   id smallserial primary key,
   label text unique not null
@@ -196,6 +204,14 @@ begin
     where h.day = new.day and (h.period is null or h.period = new.period)
   ) then
     raise exception 'HOLIDAY';
+  end if;
+
+  if exists (
+    select 1 from subject_holds h
+    where h.weekday = extract(dow from new.day)::smallint
+      and h.period = new.period
+  ) then
+    raise exception 'SLOT_TAKEN';
   end if;
 
   if exists (
@@ -575,6 +591,13 @@ begin
        and other.period = mine.period
        and other.status = 'approved'
        and other.group_id <> p_group
+      where mine.group_id = p_group
+    ) or exists (
+      select 1
+      from bookings mine
+      join subject_holds h
+        on h.weekday = extract(dow from mine.day)::smallint
+       and h.period = mine.period
       where mine.group_id = p_group
     ) then
       raise exception 'SLOT_TAKEN';

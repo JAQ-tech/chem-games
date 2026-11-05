@@ -9,8 +9,10 @@ alter table periods enable row level security;
 alter table settings enable row level security;
 alter table audit_log enable row level security;
 alter table class_sections enable row level security;
+alter table subject_holds enable row level security;
 
 create policy cs_read on class_sections for select using (true);
+create policy sh_read on subject_holds for select using (true);
 create policy cs_write on class_sections for all
   using (my_role() in ('superadmin', 'admin'))
   with check (my_role() in ('superadmin', 'admin'));
@@ -46,7 +48,7 @@ create policy a_read on audit_log for select using (my_role() = 'superadmin');
 
 grant usage on schema public to anon, authenticated;
 
-grant select on periods, class_sections, settings to anon, authenticated;
+grant select on periods, class_sections, settings, subject_holds to anon, authenticated;
 
 grant select, insert, update, delete on
   staff, bookings, holidays, notifications, periods, settings, audit_log, class_sections

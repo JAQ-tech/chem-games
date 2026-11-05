@@ -111,6 +111,53 @@ export function addDays(iso, days) {
   return dt.toISOString().slice(0, 10);
 }
 
+export const SUBJECT_HOLD_NAME = "حصة المادة";
+
+// Standing subject periods. weekday 0 is Sunday.
+export const SUBJECT_HOLDS = [
+  { weekday: 0, period: 4, subject: "لغة عربية" },
+  { weekday: 1, period: 4, subject: "علوم" },
+  { weekday: 2, period: 4, subject: "رياضيات" },
+  { weekday: 2, period: 5, subject: "تربية إسلامية" },
+  { weekday: 3, period: 5, subject: "لغة إنجليزية" },
+  { weekday: 4, period: 4, subject: "الدراسات الاجتماعية" },
+];
+
+export function isSubjectHold(day, period) {
+  const weekday = weekdayIndex(day);
+  return SUBJECT_HOLDS.some((slot) => slot.weekday === weekday && Number(slot.period) === Number(period));
+}
+
+export function subjectHoldRows(from, to) {
+  const rows = [];
+  for (const day of eachDate(from, to)) {
+    const weekday = weekdayIndex(day);
+    for (const slot of SUBJECT_HOLDS) {
+      if (slot.weekday !== weekday) continue;
+      rows.push({
+        id: `hold:${day}:${slot.period}`,
+        group_id: `hold:${day}:${slot.period}`,
+        day,
+        period: slot.period,
+        status: "approved",
+        kind: "lesson",
+        staff_id: null,
+        staff_name: SUBJECT_HOLD_NAME,
+        class_section: "",
+        subject: slot.subject,
+        lesson_title: slot.subject,
+        held: true,
+        created_at: `${day}T00:00:00.000Z`,
+      });
+    }
+  }
+  return rows;
+}
+
+export function withSubjectHolds(bookings, from, to) {
+  return [...subjectHoldRows(from, to), ...(bookings || [])];
+}
+
 export function weekdayIndex(iso) {
   const [y, m, d] = iso.split("-").map(Number);
   return new Date(Date.UTC(y, m - 1, d, 12)).getUTCDay();
@@ -172,6 +219,7 @@ export function slotBlock(ctx, day, period) {
   if (!periodRow) return "PERIODS";
   if (day === today && periodHasStarted(periodRow, today, nowTime)) return "STARTED";
   if (slotHoliday(holidays, day, period)) return "HOLIDAY";
+  if (isSubjectHold(day, period)) return "SLOT_TAKEN";
   if (bookings.some((b) => b.day === day && Number(b.period) === Number(period) && b.status === "approved")) {
     return "SLOT_TAKEN";
   }

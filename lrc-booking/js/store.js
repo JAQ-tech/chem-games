@@ -1,5 +1,5 @@
 import { SUPABASE_ANON_KEY, SUPABASE_URL } from "./config.js";
-import { AppError, addDays, buildReport, classifyStaffRows } from "./engine.js";
+import { AppError, addDays, buildReport, classifyStaffRows, withSubjectHolds } from "./engine.js";
 import { createMemoryStore, seedMemory } from "./memory.js";
 
 const DB_KEY = "manhal.local.v1";
@@ -127,7 +127,7 @@ function createRemote(supabase) {
         must(supabase.from("bookings").select("*, staff:staff_id(full_name)").gte("day", sunday).lte("day", thursday)),
         must(supabase.from("holidays").select("*").gte("day", sunday).lte("day", thursday)),
       ]);
-      return { bookings: decorateRows(bookings), holidays: holidays || [] };
+      return { bookings: withSubjectHolds(decorateRows(bookings), sunday, thursday), holidays: holidays || [] };
     },
     async mine() {
       const row = await me();
@@ -251,7 +251,7 @@ function createRemote(supabase) {
         must(supabase.from("bookings").select("*, staff:staff_id(full_name)").gte("day", from).lte("day", to).eq("status", "approved")),
         must(supabase.from("holidays").select("*").gte("day", from).lte("day", to)),
       ]);
-      return buildReport(decorateRows(bookings), holidays || [], from, to);
+      return buildReport(withSubjectHolds(decorateRows(bookings), from, to), holidays || [], from, to);
     },
     async auditLog() {
       const data = await must(supabase.from("audit_log").select("*").order("at", { ascending: false }).limit(100));

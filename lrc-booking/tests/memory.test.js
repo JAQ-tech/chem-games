@@ -57,7 +57,7 @@ test("consecutive periods are one request and a gap is rejected", async () => {
     day: "2026-11-01", periods: [1, 3], kind: "lesson", class_section: "8-2", subject: "الرياضيات", lesson_title: "الكسور",
   }), (error) => error.code === "NOT_CONSECUTIVE");
   const groupId = await store.createBooking({
-    day: "2026-11-01", periods: [3, 4], kind: "lesson", class_section: "8-2", subject: "الرياضيات", lesson_title: "الكسور",
+    day: "2026-11-01", periods: [2, 3], kind: "lesson", class_section: "8-2", subject: "الرياضيات", lesson_title: "الكسور",
   });
   const rows = (await store.mine()).filter((row) => row.group_id === groupId);
   assert.equal(rows.length, 2);
@@ -91,7 +91,7 @@ test("approval rejects the competing request and a staff member cannot decide", 
   await store.signOut();
   await sign(store, "900006");
   const groupId = await store.createBooking({
-    day: "2026-11-01", periods: [3, 4], kind: "lesson", class_section: "8-2", subject: "الرياضيات", lesson_title: "الكسور",
+    day: "2026-11-01", periods: [2, 3], kind: "lesson", class_section: "8-2", subject: "الرياضيات", lesson_title: "الكسور",
   });
   await store.signOut();
   await sign(store, "900004");
@@ -129,4 +129,18 @@ test("approval rejects the competing request and a staff member cannot decide", 
     () => store.saveStaff({ ...target, role: "superadmin" }),
     (error) => error.code === "ROLE_FORBIDDEN",
   );
+});
+
+test("a standing subject period cannot be booked over", async () => {
+  const store = storeAtSundayMorning();
+  await sign(store, "900001");
+  const lesson = { kind: "lesson", class_section: "8-2", subject: "لغة عربية", lesson_title: "قراءة" };
+  await assert.rejects(
+    () => store.createBooking({ ...lesson, day: "2026-11-01", periods: [4] }),
+    (error) => error.code === "SLOT_TAKEN",
+  );
+  const week = await store.week("2026-11-01");
+  const hold = week.bookings.find((row) => row.held && row.day === "2026-11-01" && row.period === 4);
+  assert.equal(hold.staff_name, "حصة المادة");
+  assert.equal(hold.subject, "لغة عربية");
 });

@@ -10,6 +10,8 @@ import {
   can,
   classifyStaffRows,
   defaultSettings,
+  isSubjectHold,
+  withSubjectHolds,
   muscatParts,
   schoolSunday,
 } from "./engine.js";
@@ -82,7 +84,8 @@ export function createMemoryStore(initial, options = {}) {
   }
 
   function decorate(booking) {
-    return { ...booking, staff_name: staffName(booking.staff_id) };
+    const staff_name = booking.staff_id ? staffName(booking.staff_id) : (booking.staff_name || "");
+    return { ...booking, staff_name };
   }
 
   function notify(staffId, titleAr, titleEn, bodyAr, bodyEn, bookingId) {
@@ -136,7 +139,11 @@ export function createMemoryStore(initial, options = {}) {
     async week(sunday) {
       const thursday = addDays(sunday, 4);
       return {
-        bookings: db.bookings.filter((row) => row.day >= sunday && row.day <= thursday).map(decorate),
+        bookings: withSubjectHolds(
+          db.bookings.filter((row) => row.day >= sunday && row.day <= thursday).map(decorate),
+          sunday,
+          thursday,
+        ),
         holidays: db.holidays.filter((row) => row.day >= sunday && row.day <= thursday).map((row) => ({ ...row })),
       };
     },
@@ -205,7 +212,7 @@ export function createMemoryStore(initial, options = {}) {
       if (!rows.length || rows.some((item) => item.status !== "pending")) throw new AppError("NOT_PENDING");
       if (approve) {
         for (const row of rows) {
-          const taken = db.bookings.some((item) => item.day === row.day && item.period === row.period && item.status === "approved" && item.group_id !== groupId);
+          const taken = isSubjectHold(row.day, row.period) || db.bookings.some((item) => item.day === row.day && item.period === row.period && item.status === "approved" && item.group_id !== groupId);
           if (taken) throw new AppError("SLOT_TAKEN");
         }
         const stamp = new Date().toISOString();
@@ -436,7 +443,7 @@ export function createMemoryStore(initial, options = {}) {
     async report(from, to) {
       const actor = requireMe();
       if (!can(actor.role).viewReports) throw new AppError("FORBIDDEN");
-      return buildReport(db.bookings.map(decorate), db.holidays, from, to);
+      return buildReport(withSubjectHolds(db.bookings.map(decorate), from, to), db.holidays, from, to);
     },
     async auditLog() {
       const actor = requireMe();

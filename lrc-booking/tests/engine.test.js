@@ -14,6 +14,8 @@ import {
   isConsecutive,
   rowsFromMatrix,
   schoolSunday,
+  subjectHoldRows,
+  SUBJECT_HOLD_NAME,
   weekTitle,
 } from "../js/engine.js";
 import { buildWeekModel } from "../js/pdf.js";
@@ -103,6 +105,21 @@ test("the weekly PDF model uses the Arabic title, approved rows, and the app nam
   assert.match(model.credit, /يعقوب المعمري/);
   assert.match(model.specialist, /محمود هلال المعمري/);
   assert.deepEqual(cellModel(null, null).lines, ["الاسم:", "الصف:", "المادة:"]);
+});
+
+test("subject periods repeat every week under the name حصة المادة", () => {
+  const rows = subjectHoldRows("2026-11-01", "2026-11-05");
+  assert.equal(rows.length, 6);
+  assert.equal(rows.every((row) => row.staff_name === SUBJECT_HOLD_NAME && row.status === "approved" && row.held), true);
+  const subject = (day, period) => rows.find((row) => row.day === day && row.period === period).subject;
+  assert.equal(subject("2026-11-01", 4), "لغة عربية");
+  assert.equal(subject("2026-11-02", 4), "علوم");
+  assert.equal(subject("2026-11-03", 4), "رياضيات");
+  assert.equal(subject("2026-11-03", 5), "تربية إسلامية");
+  assert.equal(subject("2026-11-04", 5), "لغة إنجليزية");
+  assert.equal(subject("2026-11-05", 4), "الدراسات الاجتماعية");
+  const next = subjectHoldRows("2026-11-08", "2026-11-12");
+  assert.equal(next.find((row) => row.day === "2026-11-08" && row.period === 4).subject, "لغة عربية");
 });
 
 test("reports separate lessons from events and count occupancy", () => {

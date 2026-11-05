@@ -409,7 +409,7 @@ function reasonText(reason) {
 }
 
 function canCancel(group) {
-  if (!state.me || !["pending", "approved"].includes(group.status)) return false;
+  if (!state.me || group.held || !["pending", "approved"].includes(group.status)) return false;
   if (state.me.role === "superadmin" || state.me.role === "admin") return true;
   if (group.staff_id !== state.me.id) return false;
   return group.rows.every((row) => !isPastSlot(row.day, row.period) && inCurrentWeek(row.day));
@@ -548,7 +548,7 @@ function cellButton(day, period) {
     tone = "cell-ok";
     body = approved.kind === "event"
       ? `<b>${esc(approved.event_title)}</b><span>${esc(approved.staff_name)}</span>`
-      : `<b>${esc(approved.staff_name)}</b><span>${esc(approved.class_section || "")}</span><span>${esc(approved.subject || "")}</span>`;
+      : `<b>${esc(approved.staff_name)}</b>${approved.class_section ? `<span>${esc(approved.class_section)}</span>` : ""}<span>${esc(approved.subject || "")}</span>`;
   } else if (pending.length) {
     tone = "cell-wait";
     body = `<b>${esc(t("pending"))} × ${pending.length}</b>`;
@@ -598,7 +598,7 @@ function bookingCard(group, queue) {
   const title = group.kind === "event" ? group.event_title : group.lesson_title;
   const meta = group.kind === "event"
     ? `${t("kindEvent")} · ${t("attendees")}: ${group.attendees || ""}${group.visitor_party ? ` · ${group.visitor_party}` : ""}`
-    : `${group.class_section || ""} · ${group.subject || ""}`;
+    : [group.class_section, group.subject].filter(Boolean).join(" · ");
   const decide = queue && group.status === "pending" && powers().manageBookings;
   const viewOnly = queue && group.status === "pending" && !powers().manageBookings;
   return `
