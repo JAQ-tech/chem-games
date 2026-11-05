@@ -1,5 +1,7 @@
 /** الاسم المعتمد للتطبيق. المصدر الوحيد للاسم في العنوان وmanifest وPDF وAPK. */
 export const APP_NAME = "مَنْهَل";
+export const APP_VERSION = "1.0.0";
+export const APP_VERSION_DATE = "2026-11-05";
 
 export const APP_TAGLINE_AR = "لحجز مركز مصادر التعلم";
 export const APP_TAGLINE_EN = "Learning resource centre booking";

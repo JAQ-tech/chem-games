@@ -1,5 +1,5 @@
 import { SUPABASE_ANON_KEY, SUPABASE_URL } from "./config.js";
-import { AppError, addDays, buildReport, classifyStaffRows, withSubjectHolds } from "./engine.js";
+import { AppError, addDays, buildReport, classifyStaffRows, sortStaff, withSubjectHolds } from "./engine.js";
 import { createMemoryStore, seedMemory } from "./memory.js";
 
 const DB_KEY = "manhal.local.v1";
@@ -145,8 +145,8 @@ function createRemote(supabase) {
       return data || [];
     },
     async staffList() {
-      const data = await must(supabase.from("staff").select("*").order("full_name"));
-      return data || [];
+      const data = await must(supabase.from("staff").select("*"));
+      return sortStaff(data || []);
     },
     async createBooking(input) {
       const kind = input.kind;

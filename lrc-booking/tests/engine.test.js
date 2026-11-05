@@ -13,7 +13,9 @@ import {
   classifyStaffRows,
   isConsecutive,
   rowsFromMatrix,
+  BOOTSTRAP_STAFF,
   schoolSunday,
+  sortStaff,
   subjectHoldRows,
   SUBJECT_HOLD_NAME,
   weekTitle,
@@ -105,6 +107,16 @@ test("the weekly PDF model uses the Arabic title, approved rows, and the app nam
   assert.match(model.credit, /يعقوب المعمري/);
   assert.match(model.specialist, /محمود هلال المعمري/);
   assert.deepEqual(cellModel(null, null).lines, ["الاسم:", "الصف:", "المادة:"]);
+});
+
+test("the staff list puts the principal first and the assistants next", () => {
+  const ordered = sortStaff(BOOTSTRAP_STAFF);
+  assert.deepEqual(ordered.slice(0, 3).map((row) => row.full_name), [
+    "د.سالم المعمري",
+    "أحمد السناني",
+    "محمد النخيلي",
+  ]);
+  assert.ok(ordered.slice(3).every((row) => row.role !== "principal" && row.role !== "admin"));
 });
 
 test("subject periods repeat every week under the name حصة المادة", () => {

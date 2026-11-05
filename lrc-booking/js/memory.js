@@ -14,6 +14,7 @@ import {
   withSubjectHolds,
   muscatParts,
   schoolSunday,
+  sortStaff,
 } from "./engine.js";
 
 function uid() {
@@ -163,7 +164,7 @@ export function createMemoryStore(initial, options = {}) {
     async staffList() {
       const row = requireMe();
       if (!can(row.role).manageStaff) throw new AppError("FORBIDDEN");
-      return db.staff.map((item) => ({ ...item }));
+      return sortStaff(db.staff.map((item) => ({ ...item })));
     },
     async createBooking(input) {
       const row = requireMe();

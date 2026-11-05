@@ -1,4 +1,4 @@
-import { APP_NAME, APP_TAGLINE_AR, APP_TAGLINE_EN, CREDIT_LINE, PRINCIPAL_NAME_DEFAULT, SCHOOL_NAME_DEFAULT, SUPABASE_ANON_KEY, SUPABASE_URL } from "./config.js";
+import { APP_NAME, APP_TAGLINE_AR, APP_TAGLINE_EN, APP_VERSION, APP_VERSION_DATE, CREDIT_LINE, PRINCIPAL_NAME_DEFAULT, SCHOOL_NAME_DEFAULT, SUPABASE_ANON_KEY, SUPABASE_URL } from "./config.js";
 import { renderAdmin } from "./admin.js";
 import {
   addDays, can, esc, groupBookings, isConsecutive,
@@ -20,6 +20,7 @@ const T = {
     signIn: "دخول",
     signOut: "خروج",
     language: "English",
+    version: "الإصدار",
     week: "الجدول",
     mine: "حجوزاتي",
     requests: "الطلبات",
@@ -154,6 +155,7 @@ const T = {
     signIn: "Sign in",
     signOut: "Sign out",
     language: "العربية",
+    version: "Version",
     week: "Timetable",
     mine: "My bookings",
     requests: "Requests",
@@ -449,7 +451,10 @@ function shell(content) {
         <button class="nav-link" data-action="lang">${esc(t("language"))}</button>
       </div>`}
     <main class="mx-auto w-full max-w-6xl flex-1 px-4 pb-8">${flashHtml()}${content}</main>
-    <footer class="border-t border-slate-200 py-4 text-center text-xs text-slate-500">${esc(CREDIT_LINE)}</footer>`;
+    <footer class="border-t border-slate-200 py-4 text-center text-xs text-slate-500">
+      <p>${esc(CREDIT_LINE)}</p>
+      <p class="mt-1">${esc(t("version"))} ${esc(APP_VERSION)} — ${esc(formatIso(APP_VERSION_DATE))}</p>
+    </footer>`;
 }
 
 function flashHtml() {

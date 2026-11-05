@@ -26,6 +26,17 @@ export const DEFAULT_BREAK = {
   label_en: "Break",
 };
 
+const STAFF_RANK = { principal: 0, admin: 1 };
+
+export function sortStaff(rows) {
+  return [...(rows || [])].sort((a, b) => {
+    const rankA = STAFF_RANK[a.role] ?? 2;
+    const rankB = STAFF_RANK[b.role] ?? 2;
+    if (rankA !== rankB) return rankA - rankB;
+    return String(a.full_name || "").localeCompare(String(b.full_name || ""), "ar");
+  });
+}
+
 export const BOOTSTRAP_STAFF = [
   { file_no: "900001", full_name: "يعقوب المعمري", job_type: "technical", subject: "", role: "superadmin" },
   { file_no: "900002", full_name: "أحمد السناني", job_type: "admin", subject: "", role: "admin" },
