@@ -1,8 +1,8 @@
 import { APP_NAME, APP_TAGLINE_AR, APP_TAGLINE_EN, CREDIT_LINE, PRINCIPAL_NAME_DEFAULT, SCHOOL_NAME_DEFAULT, SUPABASE_ANON_KEY, SUPABASE_URL } from "./config.js";
 import { renderAdmin } from "./admin.js";
 import {
-  addDays, can, classifyStaffRows, esc, groupBookings, isConsecutive,
-  muscatParts, reportToCsv, rowsFromMatrix, schoolSunday, slotHoliday, timeToMinutes, trText,
+  addDays, can, esc, groupBookings, isConsecutive,
+  muscatParts, reportToCsv, schoolSunday, slotHoliday, timeToMinutes, trText,
 } from "./engine.js";
 import { buildWeekModel, downloadWeekPdf } from "./pdf.js";
 import { createStore } from "./store.js";
@@ -1062,32 +1062,17 @@ async function handle(event) {
       state.adminTab = el.dataset.tab;
       if (state.adminTab === "settings") fillSettingsForm();
       render();
-    } else if (action === "staff-new") {
-      state.staffForm = { id: null, full_name: "", file_no: "", job_type: "teaching", subject: "", role: "staff" };
-      render();
     } else if (action === "staff-edit") {
       const row = state.staff.find((item) => item.id === el.dataset.id);
       state.staffForm = { ...row, subject: row.subject || "" };
       render();
     } else if (action === "staff-cancel") {
-      state.staffForm = null;
+      state.staffForm = { id: null, full_name: "", file_no: "", job_type: "teaching", subject: "", role: "staff" };
       render();
     } else if (action === "staff-active") {
       const row = state.staff.find((item) => item.id === el.dataset.id);
       await store.saveStaff({ ...row, active: el.dataset.active === "1" });
       state.staff = await store.staffList();
-      flash("ok", t("saved"));
-      render();
-    } else if (action === "import-save") {
-      if (!state.importPreview || state.importPreview.some((row) => row.action === "error")) {
-        flash("bad", t("err_import"));
-        render();
-        return;
-      }
-      await store.importStaff(state.importRecords);
-      state.staff = await store.staffList();
-      state.importPreview = null;
-      state.importRecords = null;
       flash("ok", t("saved"));
       render();
     } else if (action === "holiday-delete") {
@@ -1141,7 +1126,7 @@ async function onSubmit(event) {
     } else if (action === "staff-save") {
       form.querySelectorAll("[data-field]").forEach((el) => assignField(el.dataset.field, el.value));
       await store.saveStaff(state.staffForm);
-      state.staffForm = null;
+      state.staffForm = { id: null, full_name: "", file_no: "", job_type: "teaching", subject: "", role: "staff" };
       state.staff = await store.staffList();
       flash("ok", t("saved"));
       render();
@@ -1183,17 +1168,6 @@ async function onSubmit(event) {
     flash("bad", errorText(error));
     render();
   }
-}
-
-async function onImport(file) {
-  const data = await file.arrayBuffer();
-  const { XLSX } = await import("./vendor/xlsx.js");
-  const book = XLSX.read(data, { type: "array" });
-  const sheet = book.Sheets[book.SheetNames[0]];
-  const matrix = XLSX.utils.sheet_to_json(sheet, { header: 1, raw: false, defval: "" });
-  state.importRecords = rowsFromMatrix(matrix);
-  state.importPreview = classifyStaffRows(state.importRecords, state.staff.map((row) => row.file_no));
-  render();
 }
 
 function fillSettingsForm() {
@@ -1248,10 +1222,6 @@ async function boot() {
     if (event.target.dataset?.field) assignField(event.target.dataset.field, event.target.value);
   });
   document.addEventListener("change", (event) => {
-    if (event.target.dataset?.action === "import-file" && event.target.files?.[0]) {
-      onImport(event.target.files[0]).catch((error) => { flash("bad", errorText(error)); render(); });
-      return;
-    }
     if (event.target.dataset?.field) assignField(event.target.dataset.field, event.target.value);
   });
   window.addEventListener("hashchange", () => {

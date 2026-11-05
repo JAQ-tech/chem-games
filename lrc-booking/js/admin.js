@@ -33,23 +33,18 @@ export function renderAdmin(state, t, powers) {
     </section>`;
 }
 
+function blankStaffForm() {
+  return { id: null, full_name: "", file_no: "", job_type: "teaching", subject: "", role: "staff" };
+}
+
 function staffPanel(state, t, powers) {
+  if (!state.staffForm) state.staffForm = blankStaffForm();
   const form = state.staffForm;
-  const preview = state.importPreview;
   return `
     <div class="card p-4 space-y-4">
-      <div class="flex flex-wrap items-center justify-between gap-3">
-        <h2 class="text-lg font-bold">${esc(t("tabStaff"))}</h2>
-        <div class="flex flex-wrap gap-2">
-          <a class="btn-ghost" href="staff-template.csv" download>${esc(t("downloadTemplate"))}</a>
-          <button class="btn-primary" data-action="staff-new">${esc(t("addStaff"))}</button>
-        </div>
-      </div>
-      <label class="block text-sm font-semibold">${esc(t("importFile"))}
-        <input class="field mt-1" type="file" accept=".csv,.xlsx,text/csv,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" data-action="import-file">
-      </label>
-      ${preview ? previewTable(preview, t) : ""}
-      ${form ? staffEditor(form, t, powers) : ""}
+      <h2 class="text-lg font-bold">${esc(t("tabStaff"))}</h2>
+      <h3 class="text-base font-bold">${esc(form.id ? t("edit") : t("addStaff"))}</h3>
+      ${staffEditor(form, t, powers)}
       <div class="overflow-x-auto">
         <table class="w-full text-sm">
           <thead class="text-start text-slate-500">
@@ -108,38 +103,9 @@ function staffEditor(form, t, powers) {
         </label>` : ""}
       <div class="flex items-end gap-2">
         <button class="btn-primary" type="submit">${esc(t("save"))}</button>
-        <button class="btn-ghost" type="button" data-action="staff-cancel">${esc(t("close"))}</button>
+        ${form.id ? `<button class="btn-ghost" type="button" data-action="staff-cancel">${esc(t("close"))}</button>` : ""}
       </div>
     </form>`;
-}
-
-function previewTable(preview, t) {
-  const errorLabel = {
-    name: t("errMissingName"),
-    file: t("errMissingFile"),
-    job: t("errBadJob"),
-    duplicate: t("errDuplicate"),
-  };
-  return `
-    <div class="space-y-2">
-      <p class="text-sm text-slate-600">${esc(t("importPreview"))}</p>
-      <div class="overflow-x-auto">
-        <table class="w-full text-sm">
-          <thead><tr><th>#</th><th>${esc(t("name"))}</th><th>${esc(t("fileNo"))}</th><th>${esc(t("job"))}</th><th>${esc(t("result"))}</th></tr></thead>
-          <tbody>
-            ${preview.map((row) => `
-              <tr class="border-t border-slate-100">
-                <td>${esc(row.rowNumber)}</td>
-                <td>${esc(row.full_name)}</td>
-                <td>${esc(row.file_no)}</td>
-                <td>${esc(row.job_type || "")}</td>
-                <td class="${row.action === "error" ? "text-rose-700" : "text-emerald-800"}">${esc(row.action === "skip" ? t("skippedExample") : row.action === "error" ? row.errors.map((key) => errorLabel[key] || key).join("، ") : t(row.action === "update" ? "willUpdate" : "willInsert"))}</td>
-              </tr>`).join("")}
-          </tbody>
-        </table>
-      </div>
-      <button class="btn-primary" data-action="import-save" ${preview.some((row) => row.action === "error") ? "disabled" : ""}>${esc(t("saveImport"))}</button>
-    </div>`;
 }
 
 function holidayPanel(state, t) {
