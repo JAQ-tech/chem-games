@@ -44,4 +44,34 @@ android {
             }
         }
     }
+
+    sourceSets {
+        main {
+            assets.srcDir(layout.buildDirectory.dir("generated/web"))
+        }
+    }
+}
+
+def webRoot = rootProject.file("..")
+
+tasks.register("copyWeb", Copy) {
+    from(webRoot) {
+        include "index.html"
+        include "manifest.json"
+        include "sw.js"
+        include "css/**"
+        include "js/**"
+        include "assets/**"
+        exclude "android/**"
+        exclude "node_modules/**"
+        exclude "tests/**"
+        exclude "supabase/**"
+    }
+    into(layout.buildDirectory.dir("generated/web/www"))
+}
+
+tasks.configureEach { task ->
+    if (task.name.startsWith("merge") && task.name.endsWith("Assets")) {
+        task.dependsOn("copyWeb")
+    }
 }

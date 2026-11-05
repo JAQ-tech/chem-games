@@ -3,6 +3,7 @@ android/.gradle/
 android/build/
 android/app/build/
 android/keystore.properties
+android/local.properties
 *.jks
 *.keystore
 .DS_Store

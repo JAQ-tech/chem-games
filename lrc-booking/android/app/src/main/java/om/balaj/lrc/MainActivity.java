@@ -15,6 +15,7 @@ import android.webkit.JavascriptInterface;
 import android.webkit.URLUtil;
 import android.webkit.WebChromeClient;
 import android.webkit.WebResourceRequest;
+import android.webkit.WebResourceResponse;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -26,9 +27,13 @@ import android.content.pm.PackageManager;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.io.OutputStream;
 
 public class MainActivity extends Activity {
+    private static final String APP_HOST = "appassets.androidplatform.net";
+    private static final String APP_URL = "https://appassets.androidplatform.net/www/index.html";
     private WebView webView;
 
     @SuppressLint("SetJavaScriptEnabled")
@@ -50,7 +55,19 @@ public class MainActivity extends Activity {
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
                 Uri uri = request.getUrl();
-                return uri == null || !"https".equals(uri.getScheme());
+                if (uri == null) return true;
+                if (APP_HOST.equals(uri.getHost())) return false;
+                return !"https".equals(uri.getScheme());
+            }
+
+            @Override
+            public WebResourceResponse shouldInterceptRequest(WebView view, WebResourceRequest request) {
+                Uri uri = request.getUrl();
+                if (uri == null || !APP_HOST.equals(uri.getHost())) return null;
+                String path = uri.getPath();
+                if (path == null || path.equals("/")) path = "/www/index.html";
+                if (path.startsWith("/")) path = path.substring(1);
+                return openAsset(path);
             }
         });
         webView.setDownloadListener((url, userAgent, contentDisposition, mimeType, contentLength) -> {
@@ -68,7 +85,7 @@ public class MainActivity extends Activity {
             requestPermissions(new String[]{Manifest.permission.POST_NOTIFICATIONS}, 1);
         }
         LrcJob.schedule(this);
-        webView.loadUrl(getString(R.string.site_url));
+        webView.loadUrl(APP_URL);
     }
 
     @Override
@@ -76,6 +93,31 @@ public class MainActivity extends Activity {
     public void onBackPressed() {
         if (webView != null && webView.canGoBack()) webView.goBack();
         else super.onBackPressed();
+    }
+
+    private WebResourceResponse openAsset(String path) {
+        try {
+            InputStream stream = getAssets().open(path);
+            String mime = mimeFor(path);
+            String encoding = mime.startsWith("text/") || mime.contains("javascript") || mime.contains("json") ? "utf-8" : null;
+            return new WebResourceResponse(mime, encoding, stream);
+        } catch (IOException error) {
+            return null;
+        }
+    }
+
+    private static String mimeFor(String path) {
+        String name = path.toLowerCase();
+        if (name.endsWith(".html")) return "text/html";
+        if (name.endsWith(".css")) return "text/css";
+        if (name.endsWith(".js")) return "text/javascript";
+        if (name.endsWith(".json")) return "application/json";
+        if (name.endsWith(".png")) return "image/png";
+        if (name.endsWith(".jpg") || name.endsWith(".jpeg")) return "image/jpeg";
+        if (name.endsWith(".svg")) return "image/svg+xml";
+        if (name.endsWith(".ttf")) return "font/ttf";
+        if (name.endsWith(".txt")) return "text/plain";
+        return "application/octet-stream";
     }
 
     private final class Bridge {
