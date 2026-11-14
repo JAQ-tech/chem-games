@@ -1,18 +1,26 @@
-<!doctype html><html lang="ar" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>تحدّي الروابط الكيميائية</title><style>*{box-sizing:border-box}body{margin:0;font-family:"Cairo","Noto Sans Arabic",Tahoma,sans-serif;background:#eef3f9;color:#1c2b3a}
-header{background:linear-gradient(105deg,#0b5394,#6a3d9a);color:#fff;padding:20px 16px;text-align:center}header h1{margin:0;font-size:24px}header p{margin:6px 0 0;opacity:.9}
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>تحدّي الروابط الكيميائية</title>
+<style>
+*{box-sizing:border-box}body{margin:0;font-family:"Noto Naskh Arabic","Noto Sans Arabic",Tahoma,sans-serif;background:#eef3f9;color:#1c2b3a}
+header{background:linear-gradient(105deg,#0b5394,#6a3d9a);color:#fff;padding:20px 16px;text-align:center}header h1{margin:0;font-size:clamp(20px,6vw,24px)}header p{margin:6px 0 0;opacity:.9}
 main{max-width:860px;margin:auto;padding:16px}.card{background:#fff;border-radius:18px;padding:18px;box-shadow:0 6px 20px rgba(0,0,0,.08);margin-bottom:14px}
 .card h2{margin:0 0 8px;color:#0b5394;font-size:20px;border-right:5px solid #f4a300;padding-right:10px}
-.lv{display:inline-block;padding:2px 11px;border-radius:20px;color:#fff;font-size:12px;font-weight:700;margin-left:6px}.l1{background:#2e9e4a}.l2{background:#e08a00}.l3{background:#c0392b}
 .btn{background:linear-gradient(105deg,#6a3d9a,#0b5394);color:#fff;border:0;border-radius:12px;padding:11px 20px;font:inherit;font-weight:700;cursor:pointer;margin:4px}
 .btn:disabled{opacity:.55}.opt{display:block;width:100%;text-align:right;background:#f7faff;border:2px solid #c9d7e8;border-radius:12px;padding:10px 14px;margin:6px 0;font:inherit;cursor:pointer}
 .opt.good{background:#dff5e3;border-color:#2e9e4a}.opt.wrong{background:#fbe1de;border-color:#c0392b}.fb{min-height:24px;font-weight:700;margin-top:6px}
 .hud{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-bottom:10px}.chip{background:#fff;border-radius:20px;padding:5px 14px;font-weight:700;box-shadow:0 2px 6px rgba(0,0,0,.08)}
 .bar{height:10px;background:#dce6f2;border-radius:6px;overflow:hidden;margin-bottom:12px}.bar div{height:100%;width:0;background:linear-gradient(90deg,#2e9e4a,#f4a300);transition:width .3s}
-.item-box{background:linear-gradient(135deg,#f7faff,#efe6fa);border:2px dashed #a9bdd6;border-radius:16px;padding:20px;text-align:center;margin-bottom:12px}
-.sym{font-size:46px;font-weight:800;color:#0b5394;direction:ltr;unicode-bidi:isolate}.screen{display:none}.screen.on{display:block}.center{text-align:center}
-table{border-collapse:collapse;width:100%}td,th{border:1px solid #cbd5e1;padding:6px}th{background:#0e7490;color:#fff}
-bdi,.f{direction:ltr;unicode-bidi:isolate}
-footer{text-align:center;color:#5a6a7a;font-size:13px;padding:14px}</style><script>var API=null,_fin=false;
+.item-box{background:linear-gradient(135deg,#f7faff,#efe6fa);border:2px dashed #a9bdd6;border-radius:16px;padding:14px 12px 10px;text-align:center;margin-bottom:12px}
+.sym{font-size:clamp(26px,7vw,40px);font-weight:800;color:#0b5394;direction:ltr;unicode-bidi:isolate}
+.screen{display:none}.screen.on{display:block}.center{text-align:center}
+.fig{margin-top:8px}.fig:empty{display:none}.fig.revealed{background:#f3fbf4;border-radius:14px}
+footer{text-align:center;color:#5a6a7a;font-size:13px;padding:14px}
+</style>
+<script>var API=null,_fin=false;
 function scanAPI(w){var n=0;try{while(w&&(w.API==null)&&w.parent&&w.parent!=w&&n<500){n++;w=w.parent;}return (w&&w.API)?w.API:null;}catch(e){return null;}}
 function getAPI(){var a=scanAPI(window);if(!a){try{if(window.opener)a=scanAPI(window.opener);}catch(e){}}if(!a){try{if(window.top&&window.top.opener)a=scanAPI(window.top.opener);}catch(e){}}return a;}
 function sInit(){API=getAPI();if(!API)return;try{API.LMSInitialize("");var s=API.LMSGetValue("cmi.core.lesson_status");if(s==""||s=="not attempted"){API.LMSSetValue("cmi.core.lesson_status","incomplete");}API.LMSCommit("");}catch(e){API=null;}}
@@ -20,16 +28,697 @@ function sScore(raw,pass){if(!API)return;try{API.LMSSetValue("cmi.core.score.raw
 function sDone(){if(!API)return;try{var s=API.LMSGetValue("cmi.core.lesson_status");if(s=="incomplete")API.LMSSetValue("cmi.core.lesson_status","completed");API.LMSCommit("");}catch(e){}}
 function sFinish(){if(!API||_fin)return;_fin=true;try{API.LMSCommit("");API.LMSFinish("");}catch(e){}}
 window.onload=function(){sInit();};window.onbeforeunload=sFinish;window.onunload=sFinish;
-</script></head><body><header><h1>تحدّي الروابط الكيميائية</h1><p>الدرس 4-1: الروابط الكيميائية وأهميتها – لعبة تعليمية</p></header><main><div class="screen on" id="intro"><div class="card center"><h2>تحدّي الروابط الكيميائية</h2><p>ثلاث جولات: <b>حدّد نوع الرابطة</b>، ثم <b>ما الأيون الناتج؟</b>، ثم <b>أحادية أم ثنائية أم ثلاثية؟</b></p><p>النجاح من 60%.</p><button class="btn" onclick="start()">ابدأ اللعب ▶</button></div></div>
-<div class="screen" id="play"><div class="hud"><span class="chip" id="rd"></span><span class="chip" id="sc"></span></div><div class="bar"><div id="pb"></div></div><div class="card"><p id="task" style="font-weight:700"></p><div class="item-box"><div class="sym" id="sym"></div><div id="nm" style="font-size:20px"></div></div><div id="opts"></div><div class="fb" id="fb"></div></div></div>
-<div class="screen" id="over"><div class="card center"><h2>انتهت اللعبة</h2><p id="res" style="font-size:22px;font-weight:800"></p><p id="msg"></p><button class="btn" onclick="start()">العب مرة أخرى ↻</button></div></div></main><footer>الكيمياء – الصف التاسع – الفصل الدراسي الأول | أ. يعقوب بن راشد المعمري – مدرسة بلج بن عقبة الفراهيدي للبنين (٧-٩)</footer><script>var R=[[{"t": "ما نوع الرابطة في المادة؟", "s": "NaCl", "n": "كلوريد الصوديوم", "o": ["رابطة أيونية", "رابطة تساهمية", "أيونية وتساهمية معًا"], "a": "رابطة أيونية", "i": "فلز + لافلز ← انتقال إلكترونات ← رابطة أيونية."}, {"t": "ما نوع الرابطة في المادة؟", "s": "MgO", "n": "أكسيد الماغنيسيوم", "o": ["رابطة أيونية", "رابطة تساهمية", "أيونية وتساهمية معًا"], "a": "رابطة أيونية", "i": "Mg يفقد إلكترونين وO يكتسبهما (الشكل 4-5)."}, {"t": "ما نوع الرابطة في المادة؟", "s": "CaCl₂", "n": "كلوريد الكالسيوم", "o": ["رابطة أيونية", "رابطة تساهمية", "أيونية وتساهمية معًا"], "a": "رابطة أيونية", "i": "Ca²⁺ مع أيوني Cl⁻ (الشكل 4-5)."}, {"t": "ما نوع الرابطة في المادة؟", "s": "H₂O", "n": "الماء", "o": ["رابطة أيونية", "رابطة تساهمية", "أيونية وتساهمية معًا"], "a": "رابطة تساهمية", "i": "لافلز + لافلز ← تشارك إلكترونات."}, {"t": "ما نوع الرابطة في المادة؟", "s": "CH₄", "n": "الميثان", "o": ["رابطة أيونية", "رابطة تساهمية", "أيونية وتساهمية معًا"], "a": "رابطة تساهمية", "i": "أربع روابط تساهمية أحادية (الشكل 4-11)."}, {"t": "ما نوع الرابطة في المادة؟", "s": "HCl", "n": "كلوريد الهيدروجين", "o": ["رابطة أيونية", "رابطة تساهمية", "أيونية وتساهمية معًا"], "a": "رابطة تساهمية", "i": "تتشارك ذرتا H وCl بزوج من الإلكترونات (الشكل 4-10)."}, {"t": "ما نوع الرابطة في المادة؟", "s": "Cl₂", "n": "الكلور", "o": ["رابطة أيونية", "رابطة تساهمية", "أيونية وتساهمية معًا"], "a": "رابطة تساهمية", "i": "جزيء ثنائي الذرّة برابطة تساهمية أحادية (الشكل 4-8)."}, {"t": "ما نوع الرابطة بين الذرتين؟", "s": "S + Cl", "n": "الكبريت والكلور", "o": ["رابطة أيونية", "رابطة تساهمية", "أيونية وتساهمية معًا"], "a": "رابطة تساهمية", "i": "الكبريت والكلور لافلزان (السؤال 4-1 أ)."}, {"t": "ما نوع الرابطة بين الذرتين؟", "s": "Mg + N", "n": "الماغنيسيوم والنيتروجين", "o": ["رابطة أيونية", "رابطة تساهمية", "أيونية وتساهمية معًا"], "a": "رابطة أيونية", "i": "الماغنيسيوم فلز والنيتروجين لافلز (السؤال 4-1 ج)."}, {"t": "ما أنواع الروابط في المركّب؟", "s": "Na₂CO₃", "n": "كربونات الصوديوم", "o": ["رابطة أيونية", "رابطة تساهمية", "أيونية وتساهمية معًا"], "a": "أيونية وتساهمية معًا", "i": "Na⁺ مع CO₃²⁻ أيونية، وداخل CO₃²⁻ روابط تساهمية (السؤال 4-6)."}], [{"t": "ما الأيون الذي تكوّنه الذرّة؟", "s": "Na (2,8,1)", "n": "الصوديوم", "o": ["Na⁺", "Na⁻", "Na²⁺", "Na²⁻"], "a": "Na⁺", "i": "يفقد إلكترونًا واحدًا فيصبح بتركيب النيون."}, {"t": "ما الأيون الذي تكوّنه الذرّة؟", "s": "Cl (2,8,7)", "n": "الكلور", "o": ["Cl⁻", "Cl⁺", "Cl²⁻", "Cl⁷⁺"], "a": "Cl⁻", "i": "يكتسب إلكترونًا واحدًا فيصبح بتركيب الأرغون."}, {"t": "ما الأيون الذي تكوّنه الذرّة؟", "s": "Mg (2,8,2)", "n": "الماغنيسيوم", "o": ["Mg²⁺", "Mg⁺", "Mg²⁻", "Mg⁶⁻"], "a": "Mg²⁺", "i": "يفقد إلكترونين."}, {"t": "ما الأيون الذي تكوّنه الذرّة؟", "s": "O (2,6)", "n": "الأكسجين", "o": ["O²⁻", "O²⁺", "O⁶⁺", "O⁻"], "a": "O²⁻", "i": "يكتسب إلكترونين."}, {"t": "ما الأيون الذي تكوّنه الذرّة؟", "s": "Ca (2,8,8,2)", "n": "الكالسيوم", "o": ["Ca²⁺", "Ca⁺", "Ca²⁻", "Ca⁶⁻"], "a": "Ca²⁺", "i": "يفقد إلكترونين."}, {"t": "ما الأيون الذي تكوّنه الذرّة؟", "s": "Al (2,8,3)", "n": "الألومنيوم", "o": ["Al³⁺", "Al³⁻", "Al⁵⁻", "Al⁺"], "a": "Al³⁺", "i": "يفقد ثلاثة إلكترونات."}, {"t": "ما الأيون الذي تكوّنه الذرّة؟", "s": "N (2,5)", "n": "النيتروجين", "o": ["N³⁻", "N⁵⁺", "N³⁺", "N⁻"], "a": "N³⁻", "i": "يكتسب ثلاثة إلكترونات."}, {"t": "ما الأيون الذي تكوّنه الذرّة؟", "s": "K (2,8,8,1)", "n": "البوتاسيوم", "o": ["K⁺", "K⁻", "K²⁺", "K⁷⁻"], "a": "K⁺", "i": "يفقد إلكترونًا واحدًا."}], [{"t": "ما نوع الرابطة التساهمية بين الذرّتين في الجزيء؟", "s": "H₂", "n": "الهيدروجين", "o": ["رابطة أحادية", "رابطة ثنائية", "رابطة ثلاثية"], "a": "رابطة أحادية", "i": "زوج واحد مشترك."}, {"t": "ما نوع الرابطة التساهمية بين الذرّتين في الجزيء؟", "s": "F₂", "n": "الفلور", "o": ["رابطة أحادية", "رابطة ثنائية", "رابطة ثلاثية"], "a": "رابطة أحادية", "i": "زوج واحد مشترك (الشكل 4-7)."}, {"t": "ما نوع الرابطة التساهمية بين الذرّتين في الجزيء؟", "s": "O₂", "n": "الأكسجين", "o": ["رابطة أحادية", "رابطة ثنائية", "رابطة ثلاثية"], "a": "رابطة ثنائية", "i": "زوجان مشتركان (ص 67)."}, {"t": "ما نوع الرابطة التساهمية بين الذرّتين في الجزيء؟", "s": "N₂", "n": "النيتروجين", "o": ["رابطة أحادية", "رابطة ثنائية", "رابطة ثلاثية"], "a": "رابطة ثلاثية", "i": "ثلاثة أزواج مشتركة (الشكل 4-9)."}, {"t": "ما نوع الرابطة بين ذرة الكربون وكل ذرة أكسجين؟", "s": "CO₂", "n": "ثاني أكسيد الكربون", "o": ["رابطة أحادية", "رابطة ثنائية", "رابطة ثلاثية"], "a": "رابطة ثنائية", "i": "O=C=O رابطتان ثنائيتان (الشكل 4-11)."}, {"t": "ما نوع الرابطة بين ذرتي الكربون؟", "s": "C₂H₄", "n": "الإيثين", "o": ["رابطة أحادية", "رابطة ثنائية", "رابطة ثلاثية"], "a": "رابطة ثنائية", "i": "C=C في الإيثين (الشكل 4-12)."}, {"t": "ما نوع الرابطة بين N وكل ذرة H؟", "s": "NH₃", "n": "الأمونيا", "o": ["رابطة أحادية", "رابطة ثنائية", "رابطة ثلاثية"], "a": "رابطة أحادية", "i": "ثلاث روابط أحادية (الشكل 4-11)."}]],NAMES=["نوع الرابطة", "تكوين الأيونات", "تعدد الروابط التساهمية"],score=0,total=0,done=0,round=0,idx=0,lock=false,Q;
+</script>
+</head>
+<body>
+<header><h1>تحدّي الروابط الكيميائية</h1><p>الدرس 4-1: الروابط الكيميائية وأهميتها – لعبة تعليمية</p></header>
+<main>
+<div class="screen on" id="intro"><div class="card center"><h2>تحدّي الروابط الكيميائية</h2><p>ثلاث جولات: <b>حدّد نوع الرابطة</b>، ثم <b>ما الأيون الناتج؟</b>، ثم <b>أحادية أم ثنائية أم ثلاثية؟</b></p><p>الرسوم توضّح الأغلفة الإلكترونية وانتقال الإلكترونات والتمثيل النقطي.</p><p>النجاح من 60%.</p><button class="btn" onclick="start()">ابدأ اللعب ▶</button></div></div>
+<div class="screen" id="play"><div class="hud"><span class="chip" id="rd"></span><span class="chip" id="sc"></span></div><div class="bar"><div id="pb"></div></div><div class="card"><p id="task" style="font-weight:700"></p><div class="item-box"><div class="sym" id="sym"></div><div id="nm" style="font-size:20px"></div><div id="fig" class="fig"></div></div><div id="opts"></div><div class="fb" id="fb"></div></div></div>
+<div class="screen" id="over"><div class="card center"><h2>انتهت اللعبة</h2><p id="res" style="font-size:22px;font-weight:800"></p><p id="msg"></p><button class="btn" onclick="start()">العب مرة أخرى ↻</button></div></div>
+</main>
+<footer>الكيمياء – الصف التاسع – الفصل الدراسي الأول | أ. يعقوب بن راشد المعمري – مدرسة بلج بن عقبة الفراهيدي للبنين (٧-٩)</footer>
+<script>
+var SVGNS = "http://www.w3.org/2000/svg";
+var FIGN = 0;
+var ATOM_R = 16;
+var LONE_R = 40;
+var VALENCE = {H:1, C:4, N:5, O:6, F:7, Cl:7, S:6};
+var BALL = {
+  H: ["#f8fafc", "#1c2b3a"],
+  C: ["#334155", "#fff"],
+  N: ["#1d4e89", "#fff"],
+  O: ["#c0392b", "#fff"],
+  S: ["#e0b429", "#1c2b3a"],
+  Na: ["#7c3aed", "#fff"],
+  Cu: ["#b45309", "#fff"],
+  Cl: ["#0f766e", "#fff"],
+  F: ["#0f766e", "#fff"]
+};
+
+function svgEl(parent, name, attrs) {
+  var n = document.createElementNS(SVGNS, name);
+  var k;
+  for (k in attrs) if (attrs[k] != null) n.setAttribute(k, attrs[k]);
+  if (parent) parent.appendChild(n);
+  return n;
+}
+function txt(parent, x, y, str, o) {
+  o = o || {};
+  var t = svgEl(parent, "text", {
+    x: x, y: y,
+    "text-anchor": o.anchor || "middle",
+    "dominant-baseline": "central",
+    "font-size": o.size || 14,
+    "font-weight": o.weight || 700,
+    fill: o.fill || "#1c2b3a",
+    "font-family": "'Noto Naskh Arabic','Noto Sans Arabic',Tahoma,sans-serif"
+  });
+  var dir = o.dir || "ltr";
+  t.setAttribute("direction", dir);
+  t.style.direction = dir;
+  t.style.unicodeBidi = "isolate";
+  t.textContent = str;
+  return t;
+}
+function pill(svg, elx, fill) {
+  var b = elx.getBBox();
+  var r = svgEl(null, "rect", {
+    x: b.x - 8, y: b.y - 4, width: b.width + 16, height: b.height + 8,
+    rx: 10, fill: fill || "#e8f6ee", stroke: "#2e9e4a", "stroke-width": 1.4
+  });
+  svg.insertBefore(r, elx);
+}
+function fitSvg(svg) {
+  var b;
+  try { b = svg.getBBox(); } catch (e) { return; }
+  if (!b || !b.width || !b.height) return;
+  var p = 12;
+  svg.setAttribute("viewBox", (b.x - p) + " " + (b.y - p) + " " + (b.width + p * 2) + " " + (b.height + p * 2));
+}
+function arrowDef(svg, color) {
+  FIGN++;
+  var id = "ah" + FIGN;
+  var d = svgEl(svg, "defs");
+  var m = svgEl(d, "marker", {
+    id: id, viewBox: "0 0 10 10", refX: "8", refY: "5",
+    markerWidth: "7", markerHeight: "7", orient: "auto"
+  });
+  svgEl(m, "path", {d: "M 0 0 L 10 5 L 0 10 Z", fill: color || "#e08a00"});
+  return id;
+}
+function shellRadii(n) {
+  var step = n > 3 ? 13 : 16;
+  var base = n > 3 ? 14 : 18;
+  var r = [], i;
+  for (i = 0; i < n; i++) r.push(base + i * step);
+  return r;
+}
+function outerR(shells) { var r = shellRadii(shells.length); return r[r.length - 1]; }
+
+function drawAtom(svg, cx, cy, a) {
+  var radii = shellRadii(a.shells.length);
+  var i, e, ang, last = a.shells.length - 1;
+  for (i = 0; i < a.shells.length; i++) {
+    svgEl(svg, "circle", {
+      cx: cx, cy: cy, r: radii[i], fill: "none",
+      stroke: (a.highlightOuter && i === last) ? "#e08a00" : "#b7c6d6",
+      "stroke-width": (a.highlightOuter && i === last) ? 2 : 1.4
+    });
+  }
+  for (i = 0; i < a.shells.length; i++) {
+    var count = a.shells[i];
+    if (!count) continue;
+    for (e = 0; e < count; e++) {
+      ang = -Math.PI / 2 + e * (2 * Math.PI / count);
+      var gained = a.gained && i === last && e >= count - a.gained;
+      var hot = gained || (a.highlightOuter && i === last);
+      svgEl(svg, "circle", {
+        cx: (cx + Math.cos(ang) * radii[i]).toFixed(1),
+        cy: (cy + Math.sin(ang) * radii[i]).toFixed(1),
+        r: 3.3,
+        fill: hot ? "#e08a00" : "#0b5394",
+        stroke: "#fff", "stroke-width": 0.6
+      });
+    }
+  }
+  svgEl(svg, "circle", {cx: cx, cy: cy, r: 13, fill: "#0b5394"});
+  txt(svg, cx, cy, a.sym, {size: a.sym.length > 1 ? 11 : 13, fill: "#fff"});
+  var below = cy + radii[radii.length - 1] + 16;
+  var label = a.sym + (a.charge || "");
+  txt(svg, cx, below, label, {size: 15, fill: "#0b5394"});
+  txt(svg, cx, below + 16, "(" + a.shells.join(",") + ")", {size: 12, fill: "#5a6a7a", weight: 600});
+  return below + 16;
+}
+
+function drawCaptions(svg, lines, x, y) {
+  var i;
+  if (!lines) return y;
+  if (typeof lines === "string") lines = [lines];
+  for (i = 0; i < lines.length; i++) {
+    txt(svg, x, y + i * 18, lines[i], {size: 13, fill: "#1c2b3a", weight: 700, dir: "rtl"});
+  }
+  return y + lines.length * 18;
+}
+
+function drawTransfer(svg, spec) {
+  var id = arrowDef(svg);
+  var i, bottom = 0;
+  for (i = 0; i < spec.atoms.length; i++) {
+    var a = spec.atoms[i];
+    var b = drawAtom(svg, a.x, a.y, a);
+    if (b > bottom) bottom = b;
+  }
+  var arrows = spec.arrows || [];
+  for (i = 0; i < arrows.length; i++) {
+    var ar = arrows[i];
+    var from = spec.atoms[ar.from], to = spec.atoms[ar.to];
+    var dx = to.x - from.x, dy = to.y - from.y;
+    var len = Math.sqrt(dx * dx + dy * dy) || 1;
+    var ux = dx / len, uy = dy / len;
+    var x1 = from.x + ux * (outerR(from.shells) + 8);
+    var y1 = from.y + uy * (outerR(from.shells) + 8);
+    var x2 = to.x - ux * (outerR(to.shells) + 12);
+    var y2 = to.y - uy * (outerR(to.shells) + 12);
+    svgEl(svg, "line", {
+      x1: x1, y1: y1, x2: x2, y2: y2,
+      stroke: "#e08a00", "stroke-width": 2.4, "marker-end": "url(#" + id + ")"
+    });
+    var mx = (x1 + x2) / 2 - uy * 12, my = (y1 + y2) / 2 + ux * 12;
+    txt(svg, mx, my, ar.label || "e⁻", {size: 13, fill: "#b45309"});
+  }
+  drawCaptions(svg, spec.cap, 180, bottom + 22);
+  if (spec.stamp) {
+    var st = txt(svg, 180, bottom + 22 + ((spec.cap && spec.cap.length) || 0) * 18 + 8, spec.stamp, {size: 14, fill: "#146c36", dir: "rtl"});
+    pill(svg, st, "#e5f7eb");
+  }
+}
+
+function normAng(a) {
+  var t = Math.PI * 2;
+  while (a < 0) a += t;
+  while (a >= t) a -= t;
+  return a;
+}
+function loneAngles(dirs, n) {
+  var out = [], i, base, ang, gaps, a1, a2;
+  if (!n) return out;
+  if (dirs.length <= 1) {
+    base = dirs.length ? dirs[0] : -Math.PI / 2;
+    if (n === 1) return [base + Math.PI];
+    if (n === 2) return [base + Math.PI / 2, base - Math.PI / 2];
+    if (n === 3) return [base + Math.PI, base + Math.PI / 2, base - Math.PI / 2];
+    return [base + Math.PI / 4, base + 3 * Math.PI / 4, base - 3 * Math.PI / 4, base - Math.PI / 4];
+  }
+  ang = [];
+  for (i = 0; i < dirs.length; i++) ang.push(normAng(dirs[i]));
+  ang.sort(function (p, q) { return p - q; });
+  gaps = [];
+  for (i = 0; i < ang.length; i++) {
+    a1 = ang[i];
+    a2 = (i + 1 < ang.length) ? ang[i + 1] : ang[0] + Math.PI * 2;
+    gaps.push({mid: (a1 + a2) / 2, size: a2 - a1});
+  }
+  gaps.sort(function (p, q) { return q.size - p.size; });
+  for (i = 0; i < n; i++) out.push(gaps[i % gaps.length].mid);
+  return out;
+}
+function drawMark(svg, x, y, mark) {
+  txt(svg, x, y, mark, {size: 13, fill: mark === "×" ? "#0b5394" : "#c0392b", weight: 800});
+}
+function drawPair(svg, x, y, angle, m1, m2) {
+  var s = 6;
+  var px = Math.cos(angle + Math.PI / 2) * s;
+  var py = Math.sin(angle + Math.PI / 2) * s;
+  drawMark(svg, x + px, y + py, m1);
+  drawMark(svg, x - px, y - py, m2);
+}
+function bondDirs(atoms, bonds, index) {
+  var dirs = [], i, j, dx, dy, ang, k, diff;
+  for (i = 0; i < bonds.length; i++) {
+    j = bonds[i].a === index ? bonds[i].b : bonds[i].b === index ? bonds[i].a : -1;
+    if (j < 0) continue;
+    dx = atoms[j].x - atoms[index].x;
+    dy = atoms[j].y - atoms[index].y;
+    ang = Math.atan2(dy, dx);
+    var seen = false;
+    for (k = 0; k < dirs.length; k++) {
+      diff = Math.abs(normAng(dirs[k]) - normAng(ang));
+      if (diff > Math.PI) diff = Math.PI * 2 - diff;
+      if (diff < 0.35) seen = true;
+    }
+    if (!seen) dirs.push(ang);
+  }
+  return dirs;
+}
+function usedElectrons(bonds, index) {
+  var n = 0, i;
+  for (i = 0; i < bonds.length; i++) if (bonds[i].a === index || bonds[i].b === index) n += bonds[i].n;
+  return n;
+}
+function drawDC(svg, spec) {
+  var atoms = spec.atoms, bonds = spec.bonds, i, j, bottom = 0;
+  for (i = 0; i < atoms.length; i++) {
+    var have = VALENCE[atoms[i].sym];
+    var used = usedElectrons(bonds, i);
+    if (have == null || used > have || (have - used) % 2) throw new Error("dot-cross " + atoms[i].sym + " used " + used);
+  }
+  for (i = 0; i < bonds.length; i++) {
+    var A = atoms[bonds[i].a], B = atoms[bonds[i].b];
+    var dx = B.x - A.x, dy = B.y - A.y;
+    var len = Math.sqrt(dx * dx + dy * dy);
+    var ux = dx / len, uy = dy / len;
+    svgEl(svg, "line", {
+      x1: A.x + ux * (ATOM_R - 1), y1: A.y + uy * (ATOM_R - 1),
+      x2: B.x - ux * (ATOM_R - 1), y2: B.y - uy * (ATOM_R - 1),
+      stroke: "#d5e0ea", "stroke-width": 4, "stroke-linecap": "round"
+    });
+    var ang = Math.atan2(dy, dx);
+    var mx = (A.x + B.x) / 2, my = (A.y + B.y) / 2;
+    var px = Math.cos(ang + Math.PI / 2), py = Math.sin(ang + Math.PI / 2);
+    var order = bonds[i].n;
+    var spread = 13, along = 8;
+    var offs = order === 1 ? [0] : order === 2 ? [-spread, spread] : [-spread, 0, spread];
+    for (j = 0; j < offs.length; j++) {
+      var cx = mx + px * offs[j], cy = my + py * offs[j];
+      drawMark(svg, cx - ux * along, cy - uy * along, A.mark);
+      drawMark(svg, cx + ux * along, cy + uy * along, B.mark);
+    }
+  }
+  for (i = 0; i < atoms.length; i++) {
+    var dirs = bondDirs(atoms, bonds, i);
+    var pairs = (VALENCE[atoms[i].sym] - usedElectrons(bonds, i)) / 2;
+    var angs = loneAngles(dirs, pairs);
+    for (j = 0; j < angs.length; j++) {
+      drawPair(svg, atoms[i].x + Math.cos(angs[j]) * LONE_R, atoms[i].y + Math.sin(angs[j]) * LONE_R, angs[j], atoms[i].mark, atoms[i].mark);
+    }
+  }
+  for (i = 0; i < atoms.length; i++) {
+    svgEl(svg, "circle", {cx: atoms[i].x, cy: atoms[i].y, r: ATOM_R, fill: "#fff", stroke: "#0b5394", "stroke-width": 2});
+    txt(svg, atoms[i].x, atoms[i].y, atoms[i].sym, {size: 14, fill: "#0b5394"});
+    if (atoms[i].y + LONE_R > bottom) bottom = atoms[i].y + LONE_R;
+  }
+  var y = bottom + 22;
+  y = drawCaptions(svg, spec.cap || ["التمثيل النقطي: الزوج المشترك رابطة"], 180, y);
+  txt(svg, 180, y + 4, "الأزرق من ذرّة والأحمر من الأخرى", {size: 12, fill: "#5a6a7a", weight: 600, dir: "rtl"});
+  if (spec.stamp) {
+    var st = txt(svg, 180, y + 28, spec.stamp, {size: 14, fill: "#146c36", dir: "rtl"});
+    pill(svg, st, "#e5f7eb");
+  }
+}
+
+function cardBox(svg, x, y, w, h) {
+  svgEl(svg, "rect", {
+    x: x - w / 2, y: y - h / 2, width: w, height: h, rx: 12,
+    fill: "#fff", stroke: "#0b5394", "stroke-width": 1.6
+  });
+}
+function drawIonArt(svg, kind, cx, cy, scale) {
+  var s = scale || 1;
+  var map = {
+    NH4: {c: "N", around: ["H", "H", "H", "H"], charge: "⁺"},
+    SO4: {c: "S", around: ["O", "O", "O", "O"], charge: "²⁻"},
+    NO3: {c: "N", around: ["O", "O", "O"], charge: "⁻"},
+    CO3: {c: "C", around: ["O", "O", "O"], charge: "²⁻"},
+    HCO3: {c: "C", around: ["O", "O", "OH"], charge: "⁻"},
+    OH: {c: "O", around: ["H"], charge: "⁻"}
+  };
+  var g = map[kind];
+  var dist = 34 * s, r = 13 * s, i, ang, x, y;
+  var n = g.around.length;
+  for (i = 0; i < n; i++) {
+    ang = -Math.PI / 2 + i * (2 * Math.PI / n);
+    x = cx + Math.cos(ang) * dist;
+    y = cy + Math.sin(ang) * dist;
+    if (g.around[i] === "OH") {
+      var hx = cx + Math.cos(ang) * (dist + 26 * s);
+      var hy = cy + Math.sin(ang) * (dist + 26 * s);
+      svgEl(svg, "line", {x1: cx, y1: cy, x2: x, y2: y, stroke: "#94a3b8", "stroke-width": 4 * s, "stroke-linecap": "round"});
+      svgEl(svg, "line", {x1: x, y1: y, x2: hx, y2: hy, stroke: "#94a3b8", "stroke-width": 4 * s, "stroke-linecap": "round"});
+      ballAt(svg, x, y, "O", r);
+      ballAt(svg, hx, hy, "H", r * 0.85);
+    } else {
+      svgEl(svg, "line", {x1: cx, y1: cy, x2: x, y2: y, stroke: "#94a3b8", "stroke-width": 4 * s, "stroke-linecap": "round"});
+      ballAt(svg, x, y, g.around[i], r);
+    }
+  }
+  ballAt(svg, cx, cy, g.c, r);
+  var badge = txt(svg, cx + dist + 12 * s, cy - dist - 2, g.charge, {size: Math.max(15, Math.round(18 * s)), fill: "#c0392b"});
+  return badge;
+}
+function ballAt(svg, x, y, sym, r) {
+  var col = BALL[sym] || ["#0b5394", "#fff"];
+  svgEl(svg, "circle", {cx: x, cy: y, r: r, fill: col[0], stroke: "#fff", "stroke-width": 1});
+  txt(svg, x, y, sym, {size: sym.length > 1 ? Math.max(9, r * 0.7) : Math.max(11, r * 0.85), fill: col[1]});
+}
+function drawCross(svg, spec) {
+  var L = spec.left, R = spec.right, yIon = 62;
+  if (L.kind) drawIonArt(svg, L.kind, 95, yIon, 0.82);
+  else { cardBox(svg, 95, yIon, 116, 48); txt(svg, 95, yIon, L.text, {size: 20, fill: "#0b5394"}); }
+  if (R.kind) drawIonArt(svg, R.kind, 275, yIon, 0.82);
+  else { cardBox(svg, 275, yIon, 116, 48); txt(svg, 275, yIon, R.text, {size: 20, fill: "#0b5394"}); }
+  txt(svg, 180, 128, "التكافؤ", {size: 12, fill: "#5a6a7a", dir: "rtl"});
+  svgEl(svg, "circle", {cx: 95, cy: 150, r: 13, fill: "#e08a00"});
+  txt(svg, 95, 150, String(L.v), {size: 14, fill: "#fff"});
+  svgEl(svg, "circle", {cx: 275, cy: 150, r: 13, fill: "#0b5394"});
+  txt(svg, 275, 150, String(R.v), {size: 14, fill: "#fff"});
+  var orange = arrowDef(svg, "#e08a00");
+  var blue = arrowDef(svg, "#0b5394");
+  svgEl(svg, "line", {x1: 112, y1: 158, x2: 258, y2: 196, stroke: "#e08a00", "stroke-width": 2.2, "marker-end": "url(#" + orange + ")"});
+  svgEl(svg, "line", {x1: 258, y1: 158, x2: 112, y2: 196, stroke: "#0b5394", "stroke-width": 2.2, "marker-end": "url(#" + blue + ")"});
+  txt(svg, 95, 214, String(R.v), {size: 18, fill: "#0b5394"});
+  txt(svg, 275, 214, String(L.v), {size: 18, fill: "#e08a00"});
+  var formula = spec.formula ? spec.formula : "؟";
+  txt(svg, 180, 242, formula, {size: 22, fill: spec.formula ? "#146c36" : "#5a6a7a"});
+  var y = 264;
+  if (spec.steps) {
+    txt(svg, 180, y, spec.steps, {size: 16, fill: "#0b5394"});
+    y += 22;
+  }
+  y = drawCaptions(svg, spec.cap, 180, y);
+  if (spec.stamp) {
+    var st = txt(svg, 180, y + 12, spec.stamp, {size: 14, fill: "#146c36", dir: "rtl"});
+    pill(svg, st);
+  }
+}
+function drawGroupFig(svg, spec) {
+  drawIonArt(svg, spec.kind, 180, 90, spec.scale || 1.15);
+  var y = 168;
+  y = drawCaptions(svg, spec.cap, 180, y);
+  if (spec.stamp) {
+    var st = txt(svg, 180, y + 8, spec.stamp, {size: 14, fill: "#146c36", dir: "rtl"});
+    pill(svg, st);
+  }
+}
+function drawModel(svg, spec) {
+  var i, a, b, dx, dy, len, ux, uy;
+  for (i = 0; i < spec.bonds.length; i++) {
+    a = spec.atoms[spec.bonds[i].a];
+    b = spec.atoms[spec.bonds[i].b];
+    dx = b.x - a.x; dy = b.y - a.y; len = Math.sqrt(dx * dx + dy * dy); ux = dx / len; uy = dy / len;
+    if (spec.bonds[i].n === 2) {
+      var px = -uy * 3, py = ux * 3;
+      svgEl(svg, "line", {x1: a.x + px, y1: a.y + py, x2: b.x + px, y2: b.y + py, stroke: "#94a3b8", "stroke-width": 3, "stroke-linecap": "round"});
+      svgEl(svg, "line", {x1: a.x - px, y1: a.y - py, x2: b.x - px, y2: b.y - py, stroke: "#94a3b8", "stroke-width": 3, "stroke-linecap": "round"});
+    } else {
+      svgEl(svg, "line", {x1: a.x, y1: a.y, x2: b.x, y2: b.y, stroke: "#94a3b8", "stroke-width": 5, "stroke-linecap": "round"});
+    }
+  }
+  var bottom = 0;
+  for (i = 0; i < spec.atoms.length; i++) {
+    ballAt(svg, spec.atoms[i].x, spec.atoms[i].y, spec.atoms[i].sym, 16);
+    if (spec.atoms[i].y > bottom) bottom = spec.atoms[i].y;
+  }
+  var y = drawCaptions(svg, spec.cap, 180, bottom + 36);
+  if (spec.stamp) {
+    var st = txt(svg, 180, y + 8, spec.stamp, {size: 14, fill: "#146c36", dir: "rtl"});
+    pill(svg, st);
+  }
+}
+function drawTiles(svg, spec) {
+  var i, x, col;
+  for (i = 0; i < spec.items.length; i++) {
+    x = 30 + i * 46;
+    col = BALL[spec.items[i]] || ["#0b5394", "#fff"];
+    svgEl(svg, "circle", {cx: x, cy: 48, r: 18, fill: col[0], stroke: "#fff", "stroke-width": 1});
+    txt(svg, x, 48, spec.items[i], {size: 14, fill: col[1]});
+  }
+  var y = drawCaptions(svg, spec.cap, 180, 92);
+  if (spec.stamp) {
+    var st = txt(svg, 180, y + 8, spec.stamp, {size: 14, fill: "#146c36", dir: "rtl"});
+    pill(svg, st);
+  }
+}
+function drawDots(svg, spec) {
+  var row, i, x, y, n, per = 12;
+  for (row = 0; row < spec.rows.length; row++) {
+    y = 28 + row * 52;
+    txt(svg, 22, y, spec.rows[row].sym, {size: 16, fill: "#0b5394", anchor: "start"});
+    n = spec.rows[row].n;
+    for (i = 0; i < n; i++) {
+      x = 52 + (i % per) * 14;
+      var yy = y - 6 + Math.floor(i / per) * 14;
+      svgEl(svg, "circle", {cx: x, cy: yy, r: 5, fill: row === spec.hi ? "#e08a00" : "#0b5394"});
+    }
+  }
+  var base = 28 + spec.rows.length * 52;
+  var yy2 = drawCaptions(svg, spec.cap, 180, base);
+  if (spec.stamp) {
+    var st = txt(svg, 180, yy2 + 8, spec.stamp, {size: 14, fill: "#146c36", dir: "rtl"});
+    pill(svg, st);
+  }
+}
+function drawValency(svg, spec) {
+  var b = drawAtom(svg, 180, 100, {sym: spec.sym, shells: spec.shells, highlightOuter: spec.hot !== false, gained: spec.gained});
+  var y = b + 22;
+  if (spec.group) {
+    txt(svg, 180, y, "المجموعة " + spec.group, {size: 14, fill: "#0b5394", dir: "rtl"});
+    y += 22;
+  }
+  y = drawCaptions(svg, spec.cap, 180, y);
+  if (spec.big) txt(svg, 180, y + 6, spec.big, {size: 26, fill: "#146c36"});
+  if (spec.stamp) {
+    var st = txt(svg, 180, y + (spec.big ? 36 : 10), spec.stamp, {size: 14, fill: "#146c36", dir: "rtl"});
+    pill(svg, st);
+  }
+}
+function drawMix(svg, spec) {
+  ballAt(svg, 58, 90, "Na", 16);
+  txt(svg, 58, 118, "Na⁺", {size: 14, fill: "#7c3aed"});
+  ballAt(svg, 302, 90, "Na", 16);
+  txt(svg, 302, 118, "Na⁺", {size: 14, fill: "#7c3aed"});
+  drawIonArt(svg, "CO3", 180, 92, 1);
+  if (spec.showLabels) {
+    txt(svg, 112, 48, "أيونية", {size: 12, fill: "#7c3aed", dir: "rtl"});
+    txt(svg, 248, 48, "أيونية", {size: 12, fill: "#7c3aed", dir: "rtl"});
+    txt(svg, 180, 168, "تساهمية داخل الكربونات", {size: 13, fill: "#0b5394", dir: "rtl"});
+  }
+  var y = drawCaptions(svg, spec.cap, 180, spec.showLabels ? 190 : 176);
+  if (spec.stamp) {
+    var st = txt(svg, 180, y + 8, spec.stamp, {size: 14, fill: "#146c36", dir: "rtl"});
+    pill(svg, st);
+  }
+}
+function drawPairs(svg, spec) {
+  var i;
+  for (i = 0; i < spec.ions.length; i++) {
+    var ion = spec.ions[i];
+    if (ion.kind) drawIonArt(svg, ion.kind, ion.x, ion.y, ion.scale || 0.85);
+    else {
+      ballAt(svg, ion.x, ion.y, ion.sym, 16);
+      txt(svg, ion.x, ion.y + 28, ion.label, {size: 13, fill: "#0b5394"});
+    }
+  }
+  var y = drawCaptions(svg, spec.cap, 180, spec.capY || 176);
+  if (spec.stamp) {
+    var st = txt(svg, 180, y + 8, spec.stamp, {size: 14, fill: "#146c36", dir: "rtl"});
+    pill(svg, st);
+  }
+}
+
+var DRAWERS = {
+  transfer: drawTransfer,
+  dc: drawDC,
+  cross: drawCross,
+  group: drawGroupFig,
+  model: drawModel,
+  tiles: drawTiles,
+  dots: drawDots,
+  valency: drawValency,
+  mix: drawMix,
+  pairs: drawPairs
+};
+
+function resolveFig(spec) {
+  if (!spec) return null;
+  if (typeof spec === "string") return FIGS[spec];
+  if (spec.ref) {
+    var base = FIGS[spec.ref], o = {}, k;
+    for (k in base) o[k] = base[k];
+    for (k in spec) if (k !== "ref") o[k] = spec[k];
+    return o;
+  }
+  return spec;
+}
+function mountFig(host, spec) {
+  if (!host) return;
+  host.innerHTML = "";
+  host.classList.remove("revealed");
+  spec = resolveFig(spec);
+  if (!spec) return;
+  var svg = svgEl(host, "svg", {
+    viewBox: "0 0 360 220",
+    role: "img",
+    "aria-label": spec.alt || (typeof spec.cap === "string" ? spec.cap : (spec.cap && spec.cap[0]) || "رسم توضيحي"),
+    preserveAspectRatio: "xMidYMid meet"
+  });
+  svg.style.direction = "ltr";
+  svg.style.display = "block";
+  svg.style.width = "100%";
+  svg.style.height = "auto";
+  svg.style.maxWidth = "520px";
+  svg.style.margin = "0 auto";
+  if (!DRAWERS[spec.k]) throw new Error("unknown fig " + spec.k);
+  DRAWERS[spec.k](svg, spec);
+  fitSvg(svg);
+}
+
+function auditDotCross(spec, name) {
+  var i, used, have;
+  for (i = 0; i < spec.atoms.length; i++) {
+    have = VALENCE[spec.atoms[i].sym];
+    used = usedElectrons(spec.bonds, i);
+    if (have == null) return name + " unknown " + spec.atoms[i].sym;
+    if (used > have || (have - used) % 2) return name + " " + spec.atoms[i].sym + " valence " + have + " used " + used;
+  }
+  return "";
+}
+
+var FIGS = {
+  nacl: {k:"transfer", alt:"ذرّتا صوديوم وكلور وأسهم انتقال إلكترون", cap:["انتقال إلكترون من الفلز إلى اللافلز"], atoms:[
+    {sym:"Na", shells:[2,8,1], x:100, y:108, highlightOuter:true},
+    {sym:"Cl", shells:[2,8,7], x:270, y:108}
+  ], arrows:[{from:0, to:1, label:"e⁻"}]},
+  nacl2: {k:"transfer", alt:"أيونا الصوديوم والكلور بعد انتقال الإلكترون", cap:["الغلاف الأخير أصبح مكتملًا"], stamp:"رابطة أيونية", atoms:[
+    {sym:"Na", shells:[2,8], charge:"⁺", x:100, y:108},
+    {sym:"Cl", shells:[2,8,8], charge:"⁻", gained:1, x:270, y:108}
+  ]},
+  mgo: {k:"transfer", alt:"ماغنيسيوم وأكسجين وانتقال إلكترونين", cap:["الفلز يفقد إلكترونين"], atoms:[
+    {sym:"Mg", shells:[2,8,2], x:100, y:108, highlightOuter:true},
+    {sym:"O", shells:[2,6], x:270, y:108}
+  ], arrows:[{from:0, to:1, label:"2e⁻"}]},
+  mgo2: {k:"transfer", alt:"أيونا الماغنيسيوم والأكسيد", cap:["كلاهما بتركيب النيون"], stamp:"رابطة أيونية", atoms:[
+    {sym:"Mg", shells:[2,8], charge:"²⁺", x:100, y:108},
+    {sym:"O", shells:[2,8], charge:"²⁻", gained:2, x:270, y:108}
+  ]},
+  cacl: {k:"transfer", alt:"كالسيوم وذرّتا كلور وانتقال إلكترون إلى كل كلور", cap:["إلكترون واحد إلى كل ذرّة كلور"], atoms:[
+    {sym:"Ca", shells:[2,8,8,2], x:96, y:150, highlightOuter:true},
+    {sym:"Cl", shells:[2,8,7], x:278, y:72},
+    {sym:"Cl", shells:[2,8,7], x:278, y:228}
+  ], arrows:[{from:0, to:1, label:"e⁻"}, {from:0, to:2, label:"e⁻"}]},
+  cacl2: {k:"transfer", alt:"أيون كالسيوم وأيونا كلور", cap:["الكالسيوم فقد إلكترونين"], stamp:"رابطة أيونية", atoms:[
+    {sym:"Ca", shells:[2,8,8], charge:"²⁺", x:96, y:150},
+    {sym:"Cl", shells:[2,8,8], charge:"⁻", gained:1, x:278, y:72},
+    {sym:"Cl", shells:[2,8,8], charge:"⁻", gained:1, x:278, y:228}
+  ]},
+  scl: {k:"transfer", alt:"غلافا الكبريت والكلور", cap:["كلاهما لافلز"], atoms:[
+    {sym:"S", shells:[2,8,6], x:100, y:108},
+    {sym:"Cl", shells:[2,8,7], x:270, y:108}
+  ], arrows:[]},
+  scl2: {k:"transfer", alt:"الكبريت والكلور لافلان", cap:["لافلز مع لافلز: تشارك"], stamp:"رابطة تساهمية", atoms:[
+    {sym:"S", shells:[2,8,6], x:100, y:108},
+    {sym:"Cl", shells:[2,8,7], x:270, y:108}
+  ], arrows:[]},
+  mgn: {k:"transfer", alt:"غلافا الماغنيسيوم والنيتروجين", cap:["فلز ولافلز"], atoms:[
+    {sym:"Mg", shells:[2,8,2], x:100, y:108, highlightOuter:true},
+    {sym:"N", shells:[2,5], x:270, y:108}
+  ], arrows:[]},
+  mgn2: {k:"transfer", alt:"ماغنيسيوم فلز ونيتروجين لافلز", cap:["الفلز يفقد واللافلز يكتسب"], stamp:"رابطة أيونية", atoms:[
+    {sym:"Mg", shells:[2,8,2], x:100, y:108, highlightOuter:true},
+    {sym:"N", shells:[2,5], x:270, y:108}
+  ], arrows:[]},
+  mix: {k:"mix", alt:"أيونا صوديوم ومجموعة كربونات", cap:["انظر إلى الرابطة بين الأيونات وداخل المجموعة"], showLabels:false},
+  mix2: {k:"mix", alt:"رابطة أيونية مع الصوديوم وتساهمية داخل الكربونات", cap:["بين الأيونات أيونية، وداخل المجموعة تساهمية"], showLabels:true, stamp:"أيونية وتساهمية"},
+  h2o: {k:"dc", alt:"تمثيل نقطي لجزيء الماء", cap:["زوجان مشتركان مع الهيدروجين"], atoms:[
+    {sym:"O", x:180, y:110, mark:"×"},
+    {sym:"H", x:78, y:110, mark:"•"},
+    {sym:"H", x:282, y:110, mark:"•"}
+  ], bonds:[{a:0,b:1,n:1},{a:0,b:2,n:1}]},
+  ch4: {k:"dc", alt:"تمثيل نقطي للميثان", cap:["أربعة أزواج مشتركة حول الكربون"], atoms:[
+    {sym:"C", x:180, y:118, mark:"×"},
+    {sym:"H", x:180, y:30, mark:"•"},
+    {sym:"H", x:268, y:118, mark:"•"},
+    {sym:"H", x:180, y:206, mark:"•"},
+    {sym:"H", x:92, y:118, mark:"•"}
+  ], bonds:[{a:0,b:1,n:1},{a:0,b:2,n:1},{a:0,b:3,n:1},{a:0,b:4,n:1}]},
+  hcl: {k:"dc", alt:"تمثيل نقطي لكلوريد الهيدروجين", cap:["زوج واحد مشترك"], atoms:[
+    {sym:"H", x:96, y:110, mark:"•"},
+    {sym:"Cl", x:250, y:110, mark:"×"}
+  ], bonds:[{a:0,b:1,n:1}]},
+  cl2: {k:"dc", alt:"تمثيل نقطي لجزيء الكلور", cap:["زوج واحد مشترك وثلاثة أزواج حرّة"], atoms:[
+    {sym:"Cl", x:110, y:110, mark:"×"},
+    {sym:"Cl", x:260, y:110, mark:"•"}
+  ], bonds:[{a:0,b:1,n:1}]},
+  h2: {k:"dc", alt:"تمثيل نقطي لجزيء الهيدروجين", cap:["عدّ الأزواج المشتركة"], atoms:[
+    {sym:"H", x:120, y:100, mark:"×"},
+    {sym:"H", x:240, y:100, mark:"•"}
+  ], bonds:[{a:0,b:1,n:1}]},
+  f2: {k:"dc", alt:"تمثيل نقطي لجزيء الفلور", cap:["عدّ الأزواج المشتركة"], atoms:[
+    {sym:"F", x:110, y:110, mark:"×"},
+    {sym:"F", x:260, y:110, mark:"•"}
+  ], bonds:[{a:0,b:1,n:1}]},
+  o2mol: {k:"dc", alt:"تمثيل نقطي لجزيء الأكسجين", cap:["عدّ الأزواج المشتركة"], atoms:[
+    {sym:"O", x:115, y:110, mark:"×"},
+    {sym:"O", x:255, y:110, mark:"•"}
+  ], bonds:[{a:0,b:1,n:2}]},
+  n2: {k:"dc", alt:"تمثيل نقطي لجزيء النيتروجين", cap:["عدّ الأزواج المشتركة"], atoms:[
+    {sym:"N", x:115, y:110, mark:"×"},
+    {sym:"N", x:255, y:110, mark:"•"}
+  ], bonds:[{a:0,b:1,n:3}]},
+  co2: {k:"dc", alt:"تمثيل نقطي لثاني أكسيد الكربون", cap:["عدّ الأزواج بين الكربون وكل أكسجين"], atoms:[
+    {sym:"O", x:64, y:110, mark:"•"},
+    {sym:"C", x:180, y:110, mark:"×"},
+    {sym:"O", x:296, y:110, mark:"•"}
+  ], bonds:[{a:1,b:0,n:2},{a:1,b:2,n:2}]},
+  c2h4: {k:"dc", alt:"تمثيل نقطي للإيثين", cap:["انظر إلى الأزواج بين ذرّتي الكربون"], atoms:[
+    {sym:"H", x:48, y:46, mark:"•"},
+    {sym:"C", x:112, y:112, mark:"×"},
+    {sym:"H", x:48, y:178, mark:"•"},
+    {sym:"C", x:248, y:112, mark:"•"},
+    {sym:"H", x:312, y:46, mark:"×"},
+    {sym:"H", x:312, y:178, mark:"×"}
+  ], bonds:[{a:1,b:0,n:1},{a:1,b:2,n:1},{a:1,b:3,n:2},{a:3,b:4,n:1},{a:3,b:5,n:1}]},
+  nh3: {k:"dc", alt:"تمثيل نقطي للأمونيا", cap:["عدّ الأزواج بين النيتروجين والهيدروجين"], atoms:[
+    {sym:"N", x:180, y:108, mark:"×"},
+    {sym:"H", x:78, y:108, mark:"•"},
+    {sym:"H", x:282, y:108, mark:"•"},
+    {sym:"H", x:180, y:198, mark:"•"}
+  ], bonds:[{a:0,b:1,n:1},{a:0,b:2,n:1},{a:0,b:3,n:1}]},
+  na: {k:"valency", sym:"Na", shells:[2,8,1], cap:["إلكترون واحد في الغلاف الأخير"], alt:"غلاف الصوديوم"},
+  na2: {k:"valency", sym:"Na", shells:[2,8], hot:false, cap:["فقد إلكترونًا فصار بتركيب النيون"], big:"Na⁺", alt:"أيون الصوديوم"},
+  cl: {k:"valency", sym:"Cl", shells:[2,8,7], cap:["ينقص إلكترون لاكتمال الغلاف"], alt:"غلاف الكلور"},
+  clIon: {k:"valency", sym:"Cl", shells:[2,8,8], hot:false, gained:1, cap:["اكتسب إلكترونًا فصار بتركيب الأرغون"], big:"Cl⁻", alt:"أيون الكلوريد"},
+  mg: {k:"valency", sym:"Mg", shells:[2,8,2], cap:["إلكترونان في الغلاف الأخير"], alt:"غلاف الماغنيسيوم"},
+  mg2: {k:"valency", sym:"Mg", shells:[2,8], hot:false, cap:["فقد إلكترونين"], big:"Mg²⁺", alt:"أيون الماغنيسيوم"},
+  o: {k:"valency", sym:"O", shells:[2,6], cap:["ينقصه إلكترونان لاكتمال الغلاف"], alt:"غلاف الأكسجين"},
+  oxide: {k:"valency", sym:"O", shells:[2,8], hot:false, gained:2, cap:["اكتسب إلكترونين"], big:"O²⁻", alt:"أيون الأكسيد"},
+  ca: {k:"valency", sym:"Ca", shells:[2,8,8,2], cap:["إلكترونان في الغلاف الأخير"], alt:"غلاف الكالسيوم"},
+  ca2: {k:"valency", sym:"Ca", shells:[2,8,8], hot:false, cap:["فقد إلكترونين فصار بتركيب الأرغون"], big:"Ca²⁺", alt:"أيون الكالسيوم"},
+  al: {k:"valency", sym:"Al", shells:[2,8,3], cap:["ثلاثة إلكترونات في الغلاف الأخير"], alt:"غلاف الألومنيوم"},
+  al2: {k:"valency", sym:"Al", shells:[2,8], hot:false, cap:["فقد ثلاثة إلكترونات"], big:"Al³⁺", alt:"أيون الألومنيوم"},
+  n: {k:"valency", sym:"N", shells:[2,5], cap:["ينقصه ثلاثة إلكترونات لاكتمال الغلاف"], alt:"غلاف النيتروجين"},
+  n2ion: {k:"valency", sym:"N", shells:[2,8], hot:false, gained:3, cap:["اكتسب ثلاثة إلكترونات"], big:"N³⁻", alt:"أيون النتريد"},
+  k: {k:"valency", sym:"K", shells:[2,8,8,1], cap:["إلكترون واحد في الغلاف الأخير"], alt:"غلاف البوتاسيوم"},
+  k2: {k:"valency", sym:"K", shells:[2,8,8], hot:false, gained:1, cap:["فقد إلكترونًا فصار بتركيب الأرغون"], big:"K⁺", alt:"أيون البوتاسيوم"}
+};
+var NAMES = ["نوع الرابطة", "تكوين الأيونات", "تعدد الروابط التساهمية"];
+var ENDHI = "ممتاز! أنت خبير في الروابط الكيميائية 🏆";
+var ENDMID = "جيد جدًا، راجع الأخطاء ثم أعد المحاولة.";
+var ENDLO = "راجع الدرس 4-1 (ص 62 إلى 69) ثم أعد المحاولة.";
+var R = [[
+  {"t": "ما نوع الرابطة في المادة؟", "s": "NaCl", "n": "كلوريد الصوديوم", "o": ["رابطة أيونية", "رابطة تساهمية", "أيونية وتساهمية معًا"], "a": "رابطة أيونية", "i": "فلز + لافلز ← انتقال إلكترونات ← رابطة أيونية.", "f": "nacl", "f2": "nacl2"},
+  {"t": "ما نوع الرابطة في المادة؟", "s": "MgO", "n": "أكسيد الماغنيسيوم", "o": ["رابطة أيونية", "رابطة تساهمية", "أيونية وتساهمية معًا"], "a": "رابطة أيونية", "i": "Mg يفقد إلكترونين وO يكتسبهما (الشكل 4-5).", "f": "mgo", "f2": "mgo2"},
+  {"t": "ما نوع الرابطة في المادة؟", "s": "CaCl₂", "n": "كلوريد الكالسيوم", "o": ["رابطة أيونية", "رابطة تساهمية", "أيونية وتساهمية معًا"], "a": "رابطة أيونية", "i": "Ca²⁺ مع أيوني Cl⁻ (الشكل 4-5).", "f": "cacl", "f2": "cacl2"},
+  {"t": "ما نوع الرابطة في المادة؟", "s": "H₂O", "n": "الماء", "o": ["رابطة أيونية", "رابطة تساهمية", "أيونية وتساهمية معًا"], "a": "رابطة تساهمية", "i": "لافلز + لافلز ← تشارك إلكترونات.", "f": "h2o", "f2": {ref:"h2o", stamp:"رابطة تساهمية"}},
+  {"t": "ما نوع الرابطة في المادة؟", "s": "CH₄", "n": "الميثان", "o": ["رابطة أيونية", "رابطة تساهمية", "أيونية وتساهمية معًا"], "a": "رابطة تساهمية", "i": "أربع روابط تساهمية أحادية (الشكل 4-11).", "f": "ch4", "f2": {ref:"ch4", stamp:"رابطة تساهمية"}},
+  {"t": "ما نوع الرابطة في المادة؟", "s": "HCl", "n": "كلوريد الهيدروجين", "o": ["رابطة أيونية", "رابطة تساهمية", "أيونية وتساهمية معًا"], "a": "رابطة تساهمية", "i": "تتشارك ذرتا H وCl بزوج من الإلكترونات (الشكل 4-10).", "f": "hcl", "f2": {ref:"hcl", stamp:"رابطة تساهمية"}},
+  {"t": "ما نوع الرابطة في المادة؟", "s": "Cl₂", "n": "الكلور", "o": ["رابطة أيونية", "رابطة تساهمية", "أيونية وتساهمية معًا"], "a": "رابطة تساهمية", "i": "جزيء ثنائي الذرّة برابطة تساهمية أحادية (الشكل 4-8).", "f": "cl2", "f2": {ref:"cl2", stamp:"رابطة تساهمية"}},
+  {"t": "ما نوع الرابطة بين الذرتين؟", "s": "S + Cl", "n": "الكبريت والكلور", "o": ["رابطة أيونية", "رابطة تساهمية", "أيونية وتساهمية معًا"], "a": "رابطة تساهمية", "i": "الكبريت والكلور لافلزان (السؤال 4-1 أ).", "f": "scl", "f2": "scl2"},
+  {"t": "ما نوع الرابطة بين الذرتين؟", "s": "Mg + N", "n": "الماغنيسيوم والنيتروجين", "o": ["رابطة أيونية", "رابطة تساهمية", "أيونية وتساهمية معًا"], "a": "رابطة أيونية", "i": "الماغنيسيوم فلز والنيتروجين لافلز (السؤال 4-1 ج).", "f": "mgn", "f2": "mgn2"},
+  {"t": "ما أنواع الروابط في المركّب؟", "s": "Na₂CO₃", "n": "كربونات الصوديوم", "o": ["رابطة أيونية", "رابطة تساهمية", "أيونية وتساهمية معًا"], "a": "أيونية وتساهمية معًا", "i": "Na⁺ مع CO₃²⁻ أيونية، وداخل CO₃²⁻ روابط تساهمية (السؤال 4-6).", "f": "mix", "f2": "mix2"}
+],[
+  {"t": "ما الأيون الذي تكوّنه الذرّة؟", "s": "Na (2,8,1)", "n": "الصوديوم", "o": ["Na⁺", "Na⁻", "Na²⁺", "Na²⁻"], "a": "Na⁺", "i": "يفقد إلكترونًا واحدًا فيصبح بتركيب النيون.", "f": "na", "f2": "na2"},
+  {"t": "ما الأيون الذي تكوّنه الذرّة؟", "s": "Cl (2,8,7)", "n": "الكلور", "o": ["Cl⁻", "Cl⁺", "Cl²⁻", "Cl⁷⁺"], "a": "Cl⁻", "i": "يكتسب إلكترونًا واحدًا فيصبح بتركيب الأرغون.", "f": "cl", "f2": "clIon"},
+  {"t": "ما الأيون الذي تكوّنه الذرّة؟", "s": "Mg (2,8,2)", "n": "الماغنيسيوم", "o": ["Mg²⁺", "Mg⁺", "Mg²⁻", "Mg⁶⁻"], "a": "Mg²⁺", "i": "يفقد إلكترونين.", "f": "mg", "f2": "mg2"},
+  {"t": "ما الأيون الذي تكوّنه الذرّة؟", "s": "O (2,6)", "n": "الأكسجين", "o": ["O²⁻", "O²⁺", "O⁶⁺", "O⁻"], "a": "O²⁻", "i": "يكتسب إلكترونين.", "f": "o", "f2": "oxide"},
+  {"t": "ما الأيون الذي تكوّنه الذرّة؟", "s": "Ca (2,8,8,2)", "n": "الكالسيوم", "o": ["Ca²⁺", "Ca⁺", "Ca²⁻", "Ca⁶⁻"], "a": "Ca²⁺", "i": "يفقد إلكترونين.", "f": "ca", "f2": "ca2"},
+  {"t": "ما الأيون الذي تكوّنه الذرّة؟", "s": "Al (2,8,3)", "n": "الألومنيوم", "o": ["Al³⁺", "Al³⁻", "Al⁵⁻", "Al⁺"], "a": "Al³⁺", "i": "يفقد ثلاثة إلكترونات.", "f": "al", "f2": "al2"},
+  {"t": "ما الأيون الذي تكوّنه الذرّة؟", "s": "N (2,5)", "n": "النيتروجين", "o": ["N³⁻", "N⁵⁺", "N³⁺", "N⁻"], "a": "N³⁻", "i": "يكتسب ثلاثة إلكترونات.", "f": "n", "f2": "n2ion"},
+  {"t": "ما الأيون الذي تكوّنه الذرّة؟", "s": "K (2,8,8,1)", "n": "البوتاسيوم", "o": ["K⁺", "K⁻", "K²⁺", "K⁷⁻"], "a": "K⁺", "i": "يفقد إلكترونًا واحدًا.", "f": "k", "f2": "k2"}
+],[
+  {"t": "ما نوع الرابطة التساهمية بين الذرّتين في الجزيء؟", "s": "H₂", "n": "الهيدروجين", "o": ["رابطة أحادية", "رابطة ثنائية", "رابطة ثلاثية"], "a": "رابطة أحادية", "i": "زوج واحد مشترك.", "f": "h2", "f2": {ref:"h2", stamp:"رابطة أحادية"}},
+  {"t": "ما نوع الرابطة التساهمية بين الذرّتين في الجزيء؟", "s": "F₂", "n": "الفلور", "o": ["رابطة أحادية", "رابطة ثنائية", "رابطة ثلاثية"], "a": "رابطة أحادية", "i": "زوج واحد مشترك (الشكل 4-7).", "f": "f2", "f2": {ref:"f2", stamp:"رابطة أحادية"}},
+  {"t": "ما نوع الرابطة التساهمية بين الذرّتين في الجزيء؟", "s": "O₂", "n": "الأكسجين", "o": ["رابطة أحادية", "رابطة ثنائية", "رابطة ثلاثية"], "a": "رابطة ثنائية", "i": "زوجان مشتركان (ص 67).", "f": "o2mol", "f2": {ref:"o2mol", stamp:"رابطة ثنائية"}},
+  {"t": "ما نوع الرابطة التساهمية بين الذرّتين في الجزيء؟", "s": "N₂", "n": "النيتروجين", "o": ["رابطة أحادية", "رابطة ثنائية", "رابطة ثلاثية"], "a": "رابطة ثلاثية", "i": "ثلاثة أزواج مشتركة (الشكل 4-9).", "f": "n2", "f2": {ref:"n2", stamp:"رابطة ثلاثية"}},
+  {"t": "ما نوع الرابطة بين ذرة الكربون وكل ذرة أكسجين؟", "s": "CO₂", "n": "ثاني أكسيد الكربون", "o": ["رابطة أحادية", "رابطة ثنائية", "رابطة ثلاثية"], "a": "رابطة ثنائية", "i": "O=C=O رابطتان ثنائيتان (الشكل 4-11).", "f": "co2", "f2": {ref:"co2", stamp:"رابطة ثنائية"}},
+  {"t": "ما نوع الرابطة بين ذرتي الكربون؟", "s": "C₂H₄", "n": "الإيثين", "o": ["رابطة أحادية", "رابطة ثنائية", "رابطة ثلاثية"], "a": "رابطة ثنائية", "i": "C=C في الإيثين (الشكل 4-12).", "f": "c2h4", "f2": {ref:"c2h4", stamp:"رابطة ثنائية"}},
+  {"t": "ما نوع الرابطة بين N وكل ذرة H؟", "s": "NH₃", "n": "الأمونيا", "o": ["رابطة أحادية", "رابطة ثنائية", "رابطة ثلاثية"], "a": "رابطة أحادية", "i": "ثلاث روابط أحادية (الشكل 4-11).", "f": "nh3", "f2": {ref:"nh3", stamp:"رابطة أحادية"}}
+]];
+
+var score=0,total=0,done=0,round=0,idx=0,lock=false,Q;
 R.forEach(function(r){total+=r.length});
-function $(i){return document.getElementById(i)}function shuf(a){a=a.slice();for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=a[i];a[i]=a[j];a[j]=t}return a}
+function $(i){return document.getElementById(i)}
+function shuf(a){a=a.slice();for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=a[i];a[i]=a[j];a[j]=t}return a}
 function hud(){$("sc").textContent="النقاط: "+score;$("rd").textContent="الجولة "+(round+1)+" من "+R.length+": "+NAMES[round];$("pb").style.width=(done/total*100)+"%"}
 function show(id){var s=document.querySelectorAll(".screen");for(var i=0;i<s.length;i++)s[i].classList.remove("on");$(id).classList.add("on")}
+function paint(spec, revealed){try{mountFig($("fig"), spec);if(revealed)$("fig").classList.add("revealed");}catch(err){if(window.console)console.error(err);}}
 function start(){score=0;done=0;round=0;idx=0;Q=R.map(shuf);show("play");next()}
 function next(){while(round<R.length&&idx>=Q[round].length){round++;idx=0}if(round>=R.length)return end();var e=Q[round][idx++];
-$("task").textContent=e.t;$("sym").textContent=e.s||"";$("nm").textContent=e.n||"";lock=false;$("fb").textContent="";var o=$("opts");o.innerHTML="";
-shuf(e.o).forEach(function(t){var b=document.createElement("button");b.className="opt";b.textContent=t;if(!/[\u0600-\u06FF]/.test(t))b.style.direction="ltr",b.style.textAlign="left",b.style.fontSize="21px";b.onclick=function(){if(lock)return;lock=true;done++;
-if(t===e.a){score++;b.classList.add("good");$("fb").textContent="✔ أحسنت! "+(e.i||"");$("fb").style.color="#2e9e4a"}else{b.classList.add("wrong");$("fb").textContent="✘ الإجابة الصحيحة: "+e.a+". "+(e.i||"");$("fb").style.color="#c0392b";var bs=o.children;for(var k=0;k<bs.length;k++)if(bs[k].textContent===e.a)bs[k].classList.add("good")}hud();setTimeout(next,1900)};o.appendChild(b)});hud()}
-function end(){var p=Math.round(score/total*100);show("over");$("res").textContent="نتيجتك: "+score+" من "+total+" ("+p+"%)";$("msg").textContent=p>=80?"ممتاز! أنت خبير في الروابط الكيميائية 🏆":p>=60?"جيد جدًا، راجع الأخطاء ثم أعد المحاولة.":"راجع الدرس 4-1 (ص 62 إلى 69) ثم أعد المحاولة.";sScore(p,p>=60);sDone()}</script></body></html>
+$("task").textContent=e.t;$("sym").textContent=e.s||"";$("nm").textContent=e.n||"";lock=false;$("fb").textContent="";paint(e.f,false);var o=$("opts");o.innerHTML="";
+shuf(e.o).forEach(function(t){var b=document.createElement("button");b.className="opt";b.textContent=t;if(!/[؀-ۿ]/.test(t))b.style.direction="ltr",b.style.textAlign="left",b.style.fontSize="21px";b.onclick=function(){if(lock)return;lock=true;done++;
+if(t===e.a){score++;b.classList.add("good");$("fb").textContent="✔ أحسنت! "+(e.i||"");$("fb").style.color="#2e9e4a"}else{b.classList.add("wrong");$("fb").textContent="✘ الإجابة الصحيحة: "+e.a+". "+(e.i||"");$("fb").style.color="#c0392b";var bs=o.children;for(var k=0;k<bs.length;k++)if(bs[k].textContent===e.a)bs[k].classList.add("good")}
+if(e.f2)paint(e.f2,true);hud();setTimeout(next,1900)};o.appendChild(b)});hud()}
+function end(){var p=Math.round(score/total*100);show("over");$("res").textContent="نتيجتك: "+score+" من "+total+" ("+p+"%)";$("msg").textContent=p>=80?ENDHI:p>=60?ENDMID:ENDLO;sScore(p,p>=60);sDone()}
+</script>
+</body>
+</html>
